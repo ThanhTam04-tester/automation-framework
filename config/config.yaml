@@ -1,0 +1,8 @@
+# File này chứa cấu hình chung cho toàn framework.
+environment: dev
+browser: chrome
+headless: false
+timeout: 10
+report_path: reports
+screenshot_path: screenshots
+api_url: http://127.0.0.1:5000/api
