@@ -1,7 +1,7 @@
 # File này chứa cấu hình chung cho toàn framework.
 environment: dev
 browser: chrome
-headless: false
+headless: true
 timeout: 10
 report_path: reports
 screenshot_path: screenshots

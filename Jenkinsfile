@@ -2,32 +2,39 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
+                // Lệnh này giúp Jenkins tự động lấy đúng repo và mật khẩu bạn đã cấu hình trên web
                 checkout scm
             }
         }
 
-        stage('Install & Setup') {
+        stage('Install Python') {
             steps {
                 bat 'python -m venv venv'
                 bat 'venv\\Scripts\\pip install --upgrade pip'
                 bat 'venv\\Scripts\\pip install -r requirements.txt'
+                bat 'venv\\Scripts\\pip install pytest pytest-html selenium'
             }
         }
 
-        stage('Run Tests & Generate Report') {
+        stage('Run API Tests') {
             steps {
-                // Chạy test và xuất file report html
-                bat 'venv\\Scripts\\pytest -v --html=report.html --self-contained-html'
+                bat 'venv\\Scripts\\pytest -m api -v'
+            }
+        }
+
+        stage('Run UI Tests') {
+            steps {
+                bat 'venv\\Scripts\\pytest -m ui -v'
+            }
+        }
+
+        stage('Report') {
+            steps {
+                bat 'venv\\Scripts\\pytest --html=report.html'
             }
         }
     }
-    
-    // Khối này tự động lưu lại file báo cáo sau khi chạy xong
-    post {
-        always {
-            archiveArtifacts artifacts: 'report.html', allowEmptyArchive: true
-        }
-    }
-}
+}   
