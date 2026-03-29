@@ -1,9 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-# Thêm 2 dòng này để trình duyệt chạy ẩn
 chrome_options = Options()
-chrome_options.add_argument("--headless=new") 
+chrome_options.add_argument("--headless=new")
+# THÊM 2 DÒNG DƯỚI ĐÂY VÀO:
+chrome_options.add_argument("--no-sandbox") # Bắt buộc phải có khi chạy trong Docker/Linux
+chrome_options.add_argument("--disable-dev-shm-usage") # Giúp Chrome không bị tràn RAM ảo
 
-# Khi khởi tạo driver thì nhét cái options vào
 driver = webdriver.Chrome(options=chrome_options)
