@@ -5,26 +5,29 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/ThanhTam04-tester/automation-framework.git'
+                // Lệnh này giúp Jenkins tự động lấy đúng repo và mật khẩu bạn đã cấu hình trên web
+                checkout scm
             }
         }
 
         stage('Install Python') {
             steps {
                 bat 'python -m venv venv'
+                bat 'venv\\Scripts\\pip install --upgrade pip'
                 bat 'venv\\Scripts\\pip install -r requirements.txt'
+                bat 'venv\\Scripts\\pip install pytest pytest-html selenium'
             }
         }
 
         stage('Run API Tests') {
             steps {
-                bat 'venv\\Scripts\\pytest -m api'
+                bat 'venv\\Scripts\\pytest -m api -v'
             }
         }
 
         stage('Run UI Tests') {
             steps {
-                bat 'venv\\Scripts\\pytest -m ui'
+                bat 'venv\\Scripts\\pytest -m ui -v'
             }
         }
 
