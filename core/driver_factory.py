@@ -1,10 +1,7 @@
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.firefox.service import Service as FirefoxService
 
 from core.config_loader import get_config
 from core.logger import get_logger
@@ -31,24 +28,22 @@ def create_driver():
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        driver = webdriver.Chrome(
-            service=ChromeService(ChromeDriverManager().install()),
-            options=options
-        )
+        # Chỉ định đường dẫn trình duyệt nếu đang chạy trên Linux (Docker)
+        if os.path.exists("/usr/bin/chromium"):
+            options.binary_location = "/usr/bin/chromium"
+
+        # Khởi tạo siêu gọn gàng, Selenium 4 sẽ tự lo phần Driver
+        driver = webdriver.Chrome(options=options)
 
     elif browser == "firefox":
         options = FirefoxOptions()
         if headless:
             options.add_argument("--headless")
             
-        # Firefox cũng nên có đoạn này nếu chạy trên Docker
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
 
-        driver = webdriver.Firefox(
-            service=FirefoxService(GeckoDriverManager().install()),
-            options=options
-        )
+        driver = webdriver.Firefox(options=options)
 
     else:
         raise Exception(f"Browser not supported: {browser}")
