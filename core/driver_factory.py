@@ -11,7 +11,6 @@ from core.logger import get_logger
 
 logger = get_logger("driver_factory")
 
-
 def create_driver():
     config = get_config()
 
@@ -27,6 +26,10 @@ def create_driver():
 
         options.add_argument("--window-size=1920,1080")
         options.add_argument("--disable-gpu")
+        
+        # Bắt buộc phải có 2 dòng này khi chạy Jenkins trên Docker/Linux
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
 
         driver = webdriver.Chrome(
             service=ChromeService(ChromeDriverManager().install()),
@@ -37,6 +40,10 @@ def create_driver():
         options = FirefoxOptions()
         if headless:
             options.add_argument("--headless")
+            
+        # Firefox cũng nên có đoạn này nếu chạy trên Docker
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
 
         driver = webdriver.Firefox(
             service=FirefoxService(GeckoDriverManager().install()),
