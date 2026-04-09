@@ -22,8 +22,8 @@ pipeline {
 
         stage('Run UI Tests') {
             steps {
-                // Chỉ chạy test UI và tự động xuất dữ liệu báo cáo Allure
-                sh 'venv/bin/pytest -m ui'
+                // Chạy toàn bộ test trong thư mục UI
+                sh 'venv/bin/pytest tests/ui/'
             }
         }
     }
