@@ -5,6 +5,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 
 @allure.epic("Web UI Testing")
 @allure.feature("Booking Form")
@@ -20,9 +21,13 @@ def test_dat_phong_thanh_cong(driver, config):
         driver.find_element(By.ID, "custName").send_keys("Mai Thị Thanh Tâm")
         driver.find_element(By.ID, "custPhone").send_keys("0901234567")
         
-    with allure.step("3. Chọn Loại phòng"):
-        room_dropdown = driver.find_element(By.ID, "roomSelect")
-        room_dropdown.send_keys("Phòng Classic") # Chọn phòng
+    with allure.step("3. Chọn Loại phòng và Ngày nhận"):
+        # Dùng class Select chuyên dụng cho thẻ <select>
+        room_dropdown = Select(driver.find_element(By.ID, "roomSelect"))
+        room_dropdown.select_by_visible_text("102 - VIP") # Bắt Robot chọn phòng VIP
+        
+        # Sẵn tiện nhập luôn ngày nhận phòng cho form nó đầy đủ
+        driver.find_element(By.ID, "checkInDate").send_keys("10-10-2026")
 
     with allure.step("4. Bấm nút Đặt phòng (Check Availability)"):
         # Tìm nút bấm dựa trên cấu trúc HTML của bạn
