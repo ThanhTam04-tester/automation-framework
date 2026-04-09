@@ -1,3 +1,4 @@
+# Test thu bat loi UI
 import pytest
 import allure
 import time
@@ -8,12 +9,11 @@ from selenium.webdriver.support import expected_conditions as EC
 @allure.epic("Web UI Testing")
 @allure.feature("Booking Form")
 @allure.title("Test chức năng đặt phòng trực tiếp trên trang chủ")
-def test_dat_phong_thanh_cong(driver):
+def test_dat_phong_thanh_cong(driver, config):
     with allure.step("1. Truy cập vào trang chủ Palatin Hotel"):
-        # Thay IP nếu IP mạng WiFi của bạn thay đổi
-        driver.get("http://192.168.1.18:5000/")
-        # Đợi web load xong
-        time.sleep(2) 
+        # Lấy URL từ file env.dev.yaml thay vì viết cứng
+        driver.get(config["base_url"])
+        time.sleep(2)
 
     with allure.step("2. Nhập thông tin Khách hàng"):
         # Lấy đúng ID từ file index.html của bạn
