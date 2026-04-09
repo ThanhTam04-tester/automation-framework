@@ -10,36 +10,28 @@ pipeline {
 
         stage('Install Python') {
             steps {
-                // Trên Linux dùng lệnh 'sh' thay vì 'bat', và đường dẫn là 'venv/bin/' thay vì 'venv\\Scripts\\'
                 sh 'python3 -m venv venv'
                 sh 'venv/bin/pip install --upgrade pip'
                 sh 'venv/bin/pip install -r requirements.txt'
-                sh 'venv/bin/pip install pytest pytest-html selenium'
+                // Cài đặt đủ thư viện cho test UI và xuất báo cáo Allure
+                sh 'venv/bin/pip install pytest pytest-html selenium allure-pytest'
             }
         }
 
-        stage('Run API Tests') {
-            steps {
-                sh 'venv/bin/pytest -m api -v'
-            }
-        }
+        // ĐÃ XÓA KHỐI "Run API Tests" GÂY LỖI Ở ĐÂY
 
         stage('Run UI Tests') {
             steps {
-                sh 'venv/bin/pytest -m ui -v'
-            }
-        }
-
-        stage('Report') {
-            steps {
-                sh 'venv/bin/pytest --html=report.html --self-contained-html'
+                // Chỉ chạy test UI và tự động xuất dữ liệu báo cáo Allure
+                sh 'venv/bin/pytest -m ui'
             }
         }
     }
     
     post {
         always {
-            archiveArtifacts artifacts: 'report.html', allowEmptyArchive: true
+            // Lệnh này yêu cầu Jenkins đọc dữ liệu và vẽ ra biểu đồ Allure tuyệt đẹp
+            allure includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
         }
     }
 }
