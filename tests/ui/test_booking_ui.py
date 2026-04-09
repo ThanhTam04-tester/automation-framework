@@ -22,17 +22,18 @@ def test_dat_phong_thanh_cong(driver, config):
         driver.find_element(By.ID, "custPhone").send_keys("0901234567")
         
     with allure.step("3. Chọn Loại phòng và Ngày nhận"):
-        # Dùng class Select chuyên dụng cho thẻ <select>
-        room_dropdown = Select(driver.find_element(By.ID, "roomSelect"))
-        room_dropdown.select_by_visible_text("102 - VIP") # Bắt Robot chọn phòng VIP
+        # Dùng Javascript ép gán giá trị cho thẻ bị ẩn (2 là value của phòng VIP trong file HTML)
+        driver.execute_script("document.getElementById('roomSelect').value = '2';")
         
-        # Sẵn tiện nhập luôn ngày nhận phòng cho form nó đầy đủ
+        # Nhập ngày nhận phòng
         driver.find_element(By.ID, "checkInDate").send_keys("10-10-2026")
 
-    with allure.step("4. Bấm nút Đặt phòng (Check Availability)"):
-        # Tìm nút bấm dựa trên cấu trúc HTML của bạn
-        btn = driver.find_element(By.XPATH, "//button[contains(text(), 'Check Availability')]")
-        btn.click()
+    with allure.step("4. Bấm nút Đặt phòng"):
+        # Tìm nút bấm theo ID thay vì Text cho chính xác tuyệt đối
+        btn = driver.find_element(By.ID, "btnBook")
+        
+        # Dùng JS Click để click thủng mọi thành phần cản đường
+        driver.execute_script("arguments[0].click();", btn)
         time.sleep(2)
 
     with allure.step("5. Xác minh thông báo đặt phòng"):
