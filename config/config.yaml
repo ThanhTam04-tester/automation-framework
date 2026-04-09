@@ -5,4 +5,4 @@ headless: true
 timeout: 10
 report_path: reports
 screenshot_path: screenshots
-api_url: http://host.docker.internal:5000/api
+api_url: http://192.168.1.18:5000/api

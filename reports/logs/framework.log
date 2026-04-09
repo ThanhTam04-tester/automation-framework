@@ -5327,3 +5327,1722 @@ requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=5
 2026-03-29 13:27:46 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_open_page.py::test_open_google
 2026-03-29 13:27:46 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
 2026-03-29 13:27:51 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_open_page.py::test_open_google
+2026-03-30 10:28:01 | INFO  | automation_framework.tests | [TEST START] tests/api/test_api_client.py::test_api_client_get
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API REQUEST] GET https://fake-api.com/users
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API RESPONSE BODY] {"message": "success"}
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST END] tests/api/test_api_client.py::test_api_client_get
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST START] tests/api/test_api_client.py::test_api_client_post
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API REQUEST] POST https://fake-api.com/auth/login
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'username': 'admin', 'password': '123456'}
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API RESPONSE BODY] {"message": "success"}
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST END] tests/api/test_api_client.py::test_api_client_post
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST START] tests/api/test_auth_api.py::test_auth_login
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST END] tests/api/test_auth_api.py::test_auth_login
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST START] tests/api/test_demo.py::test_kiem_tra_ci_cd
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST END] tests/api/test_demo.py::test_kiem_tra_ci_cd
+2026-03-30 10:28:02 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_get_users_schema
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API REQUEST] GET http://192.168.1.18:5000/api/users
+2026-03-30 10:28:02 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-03-30 10:28:12 | ERROR | automation_framework.api_client | [API ERROR] GET http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1d60410>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1d60410>, 'Connection to host.docker.internal timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1d60410>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 665, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1d60410>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+2026-03-30 10:28:12 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_get_users_schema
+2026-03-30 10:28:12 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_create_user
+2026-03-30 10:28:12 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/users
+2026-03-30 10:28:12 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-03-30 10:28:12 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'name': 'Tam', 'job': 'Tester'}
+2026-03-30 10:28:22 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc2452c90>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc2452c90>, 'Connection to host.docker.internal timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc2452c90>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 665, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc2452c90>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+2026-03-30 10:28:22 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_create_user
+2026-03-30 10:28:22 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_user_flow
+2026-03-30 10:28:22 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/users
+2026-03-30 10:28:22 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-03-30 10:28:22 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'name': 'Test', 'job': 'QA'}
+2026-03-30 10:28:32 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc26f55d0>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc26f55d0>, 'Connection to host.docker.internal timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc26f55d0>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 665, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc26f55d0>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+2026-03-30 10:28:32 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_user_flow
+2026-03-30 10:28:32 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_api.py::test_get_users
+2026-03-30 10:28:32 | INFO  | automation_framework.api_client | [API REQUEST] GET http://192.168.1.18:5000/api/users
+2026-03-30 10:28:32 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-03-30 10:28:42 | ERROR | automation_framework.api_client | [API ERROR] GET http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1a2aa90>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 213, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1a2aa90>, 'Connection to host.docker.internal timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1a2aa90>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 665, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by ConnectTimeoutError(<HTTPConnection(host='host.docker.internal', port=5000) at 0x2ebc1a2aa90>, 'Connection to host.docker.internal timed out. (connect timeout=10)'))
+2026-03-30 10:28:43 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_api.py::test_get_users
+2026-03-30 10:28:43 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_api_real.py::test_get_users_real
+2026-03-30 10:28:43 | INFO  | automation_framework.api_client | [API REQUEST] GET https://jsonplaceholder.typicode.com/users
+2026-03-30 10:28:43 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-03-30 10:28:43 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-03-30 10:28:43 | INFO  | automation_framework.api_client | [API RESPONSE BODY] [
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ervin Howell",
+    "username": "Antonette",
+    "email": "Shanna@melissa.tv",
+    "address": {
+      "street": "Victor Plains",
+      "suite": "Suite 879",
+      "city": "Wisokyburgh",
+      "zipcode": "90566-7771",
+      "geo": {
+        "lat": "-43.9509",
+        "lng": "-34.4618"
+      }
+    },
+    "phone": "010-692-6593 x09125",
+    "website": "anastasia.net",
+    "company": {
+      "name": "Deckow-Crist",
+      "catchPhrase": "Proactive didactic contingency",
+      "bs": "synergize scalable supply-chains"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Clementine Bauch",
+    "username": "Samantha",
+    "email": "Nathan@yesenia.net",
+    "address": {
+      "street": "Douglas Extension",
+      "suite": "Suite 847",
+      "city": "McKenziehaven",
+      "zipcode": "59590-4157",
+      "geo": {
+        "lat": "-68.6102",
+        "lng": "-47.0653"
+      }
+    },
+    "phone": "1-463-123-4447",
+    "website": "ramiro.info",
+    "company": {
+      "name": "Romaguera-Jacobson",
+      "catchPhrase": "Face to face bifurcated interface",
+      "bs": "e-enable strategic applications"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "username": "Karianne",
+    "email": "Julianne.OConner@kory.org",
+    "address": {
+      "street": "Hoeger Mall",
+      "suite": "Apt. 692",
+      "city": "South Elvis",
+      "zipcode": "53919-4257",
+      "geo": {
+        "lat": "29.4572",
+        "lng": "-164.2990"
+      }
+    },
+    "phone": "493-170-9623 x156",
+    "website": "kale.biz",
+    "company": {
+      "name": "Robel-Corkery",
+      "catchPhrase": "Multi-tiered zero tolerance productivity",
+      "bs": "transition cutting-edge web services"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Chelsey Dietrich",
+    "username": "Kamren",
+    "email": "Lucio_Hettinger@annie.ca",
+    "address": {
+      "street": "Skiles Walks",
+      "suite": "Suite 351",
+      "city": "Roscoeview",
+      "zipcode": "33263",
+      "geo": {
+        "lat": "-31.8129",
+        "lng": "62.5342"
+      }
+    },
+    "phone": "(254)954-1289",
+    "website": "demarco.info",
+    "company": {
+      "name": "Keebler LLC",
+      "catchPhrase": "User-centric fault-tolerant solution",
+      "bs": "revolutionize end-to-end systems"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Mrs. Dennis Schulist",
+    "username": "Leopoldo_Corkery",
+    "email": "Karley_Dach@jasper.info",
+    "address": {
+      "street": "Norberto Crossing",
+      "suite": "Apt. 950",
+      "city": "South Christy",
+      "zipcode": "23505-1337",
+      "geo": {
+        "lat": "-71.4197",
+        "lng": "71.7478"
+      }
+    },
+    "phone": "1-477-935-8478 x6430",
+    "website": "ola.org",
+    "company": {
+      "name": "Considine-Lockman",
+      "catchPhrase": "Synchronised bottom-line interface",
+      "bs": "e-enable innovative applications"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Kurtis Weissnat",
+    "username": "Elwyn.Skiles",
+    "email": "Telly.Hoeger@billy.biz",
+    "address": {
+      "street": "Rex Trail",
+      "suite": "Suite 280",
+      "city": "Howemouth",
+      "zipcode": "58804-1099",
+      "geo": {
+        "lat": "24.8918",
+        "lng": "21.8984"
+      }
+    },
+    "phone": "210.067.6132",
+    "website": "elvis.io",
+    "company": {
+      "name": "Johns Group",
+      "catchPhrase": "Configurable multimedia task-force",
+      "bs": "generate enterprise e-tailers"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Nicholas Runolfsdottir V",
+    "username": "Maxime_Nienow",
+    "email": "Sherwood@rosamond.me",
+    "address": {
+      "street": "Ellsworth Summit",
+      "suite": "Suite 729",
+      "city": "Aliyaview",
+      "zipcode": "45169",
+      "geo": {
+        "lat": "-14.3990",
+        "lng": "-120.7677"
+      }
+    },
+    "phone": "586.493.6943 x140",
+    "website": "jacynthe.com",
+    "company": {
+      "name": "Abernathy Group",
+      "catchPhrase": "Implemented secondary concept",
+      "bs": "e-enable extensible e-tailers"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Glenna Reichert",
+    "username": "Delphine",
+    "email": "Chaim_McDermott@dana.io",
+    "address": {
+      "street": "Dayna Park",
+      "suite": "Suite 449",
+      "city": "Bartholomebury",
+      "zipcode": "76495-3109",
+      "geo": {
+        "lat": "24.6463",
+        "lng": "-168.8889"
+      }
+    },
+    "phone": "(775)976-6794 x41206",
+    "website": "conrad.com",
+    "company": {
+      "name": "Yost and Sons",
+      "catchPhrase": "Switchable contextually-based project",
+      "bs": "aggregate real-time technologies"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Clementina DuBuque",
+    "username": "Moriah.Stanton",
+    "email": "Rey.Padberg@karina.biz",
+    "address": {
+      "street": "Kattie Turnpike",
+      "suite": "Suite 198",
+      "city": "Lebsackbury",
+      "zipcode": "31428-2261",
+      "geo": {
+        "lat": "-38.2386",
+        "lng": "57.2232"
+      }
+    },
+    "phone": "024-648-3804",
+    "website": "ambrose.net",
+    "company": {
+      "name": "Hoeger LLC",
+      "catchPhrase": "Centralized empowering task-force",
+      "bs": "target end-to-end models"
+    }
+  }
+]
+2026-03-30 10:28:43 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_api_real.py::test_get_users_real
+2026-03-30 10:28:43 | INFO  | automation_framework.tests | [TEST START] tests/test_config.py::test_load_config
+2026-03-30 10:28:43 | INFO  | automation_framework.tests | [TEST END] tests/test_config.py::test_load_config
+2026-03-30 10:28:43 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_login.py::test_login
+2026-03-30 10:28:43 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-03-30 10:29:29 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_login.py::test_login
+2026-04-06 20:22:36 | INFO  | automation_framework.tests | [TEST START] tests/api/test_api_client.py::test_api_client_get
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST] GET https://fake-api.com/users
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API RESPONSE BODY] {"message": "success"}
+2026-04-06 20:22:36 | INFO  | automation_framework.tests | [TEST END] tests/api/test_api_client.py::test_api_client_get
+2026-04-06 20:22:36 | INFO  | automation_framework.tests | [TEST START] tests/api/test_api_client.py::test_api_client_post
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST] POST https://fake-api.com/auth/login
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'username': 'admin', 'password': '123456'}
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API RESPONSE BODY] {"message": "success"}
+2026-04-06 20:22:36 | INFO  | automation_framework.tests | [TEST END] tests/api/test_api_client.py::test_api_client_post
+2026-04-06 20:22:36 | INFO  | automation_framework.tests | [TEST START] tests/api/test_auth_api.py::test_api_login_success
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/api/login
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:36 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'username': 'admin', 'password': '123'}
+2026-04-06 20:22:38 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/api/login - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/api/login (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/api/login (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/api/login (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:22:39 | INFO  | automation_framework.tests | [TEST END] tests/api/test_auth_api.py::test_api_login_success
+2026-04-06 20:22:39 | INFO  | automation_framework.tests | [TEST START] tests/api/test_demo.py::test_kiem_tra_ci_cd
+2026-04-06 20:22:39 | INFO  | automation_framework.tests | [TEST END] tests/api/test_demo.py::test_kiem_tra_ci_cd
+2026-04-06 20:22:39 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_get_users_schema
+2026-04-06 20:22:39 | INFO  | automation_framework.api_client | [API REQUEST] GET http://192.168.1.18:5000/api/users
+2026-04-06 20:22:39 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:41 | ERROR | automation_framework.api_client | [API ERROR] GET http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:22:42 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_get_users_schema
+2026-04-06 20:22:42 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_create_user
+2026-04-06 20:22:42 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/users
+2026-04-06 20:22:42 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:42 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'name': 'Tam', 'job': 'Tester'}
+2026-04-06 20:22:44 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:22:44 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_create_user
+2026-04-06 20:22:44 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_user_flow
+2026-04-06 20:22:44 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/users
+2026-04-06 20:22:44 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:44 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'name': 'Test', 'job': 'QA'}
+2026-04-06 20:22:47 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:22:47 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_user_flow
+2026-04-06 20:22:47 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_api.py::test_get_users
+2026-04-06 20:22:47 | INFO  | automation_framework.api_client | [API REQUEST] GET http://192.168.1.18:5000/api/users
+2026-04-06 20:22:47 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:50 | ERROR | automation_framework.api_client | [API ERROR] GET http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:22:50 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_api.py::test_get_users
+2026-04-06 20:22:50 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_api_real.py::test_get_users_real
+2026-04-06 20:22:50 | INFO  | automation_framework.api_client | [API REQUEST] GET https://jsonplaceholder.typicode.com/users
+2026-04-06 20:22:50 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:22:50 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-04-06 20:22:50 | INFO  | automation_framework.api_client | [API RESPONSE BODY] [
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ervin Howell",
+    "username": "Antonette",
+    "email": "Shanna@melissa.tv",
+    "address": {
+      "street": "Victor Plains",
+      "suite": "Suite 879",
+      "city": "Wisokyburgh",
+      "zipcode": "90566-7771",
+      "geo": {
+        "lat": "-43.9509",
+        "lng": "-34.4618"
+      }
+    },
+    "phone": "010-692-6593 x09125",
+    "website": "anastasia.net",
+    "company": {
+      "name": "Deckow-Crist",
+      "catchPhrase": "Proactive didactic contingency",
+      "bs": "synergize scalable supply-chains"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Clementine Bauch",
+    "username": "Samantha",
+    "email": "Nathan@yesenia.net",
+    "address": {
+      "street": "Douglas Extension",
+      "suite": "Suite 847",
+      "city": "McKenziehaven",
+      "zipcode": "59590-4157",
+      "geo": {
+        "lat": "-68.6102",
+        "lng": "-47.0653"
+      }
+    },
+    "phone": "1-463-123-4447",
+    "website": "ramiro.info",
+    "company": {
+      "name": "Romaguera-Jacobson",
+      "catchPhrase": "Face to face bifurcated interface",
+      "bs": "e-enable strategic applications"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "username": "Karianne",
+    "email": "Julianne.OConner@kory.org",
+    "address": {
+      "street": "Hoeger Mall",
+      "suite": "Apt. 692",
+      "city": "South Elvis",
+      "zipcode": "53919-4257",
+      "geo": {
+        "lat": "29.4572",
+        "lng": "-164.2990"
+      }
+    },
+    "phone": "493-170-9623 x156",
+    "website": "kale.biz",
+    "company": {
+      "name": "Robel-Corkery",
+      "catchPhrase": "Multi-tiered zero tolerance productivity",
+      "bs": "transition cutting-edge web services"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Chelsey Dietrich",
+    "username": "Kamren",
+    "email": "Lucio_Hettinger@annie.ca",
+    "address": {
+      "street": "Skiles Walks",
+      "suite": "Suite 351",
+      "city": "Roscoeview",
+      "zipcode": "33263",
+      "geo": {
+        "lat": "-31.8129",
+        "lng": "62.5342"
+      }
+    },
+    "phone": "(254)954-1289",
+    "website": "demarco.info",
+    "company": {
+      "name": "Keebler LLC",
+      "catchPhrase": "User-centric fault-tolerant solution",
+      "bs": "revolutionize end-to-end systems"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Mrs. Dennis Schulist",
+    "username": "Leopoldo_Corkery",
+    "email": "Karley_Dach@jasper.info",
+    "address": {
+      "street": "Norberto Crossing",
+      "suite": "Apt. 950",
+      "city": "South Christy",
+      "zipcode": "23505-1337",
+      "geo": {
+        "lat": "-71.4197",
+        "lng": "71.7478"
+      }
+    },
+    "phone": "1-477-935-8478 x6430",
+    "website": "ola.org",
+    "company": {
+      "name": "Considine-Lockman",
+      "catchPhrase": "Synchronised bottom-line interface",
+      "bs": "e-enable innovative applications"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Kurtis Weissnat",
+    "username": "Elwyn.Skiles",
+    "email": "Telly.Hoeger@billy.biz",
+    "address": {
+      "street": "Rex Trail",
+      "suite": "Suite 280",
+      "city": "Howemouth",
+      "zipcode": "58804-1099",
+      "geo": {
+        "lat": "24.8918",
+        "lng": "21.8984"
+      }
+    },
+    "phone": "210.067.6132",
+    "website": "elvis.io",
+    "company": {
+      "name": "Johns Group",
+      "catchPhrase": "Configurable multimedia task-force",
+      "bs": "generate enterprise e-tailers"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Nicholas Runolfsdottir V",
+    "username": "Maxime_Nienow",
+    "email": "Sherwood@rosamond.me",
+    "address": {
+      "street": "Ellsworth Summit",
+      "suite": "Suite 729",
+      "city": "Aliyaview",
+      "zipcode": "45169",
+      "geo": {
+        "lat": "-14.3990",
+        "lng": "-120.7677"
+      }
+    },
+    "phone": "586.493.6943 x140",
+    "website": "jacynthe.com",
+    "company": {
+      "name": "Abernathy Group",
+      "catchPhrase": "Implemented secondary concept",
+      "bs": "e-enable extensible e-tailers"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Glenna Reichert",
+    "username": "Delphine",
+    "email": "Chaim_McDermott@dana.io",
+    "address": {
+      "street": "Dayna Park",
+      "suite": "Suite 449",
+      "city": "Bartholomebury",
+      "zipcode": "76495-3109",
+      "geo": {
+        "lat": "24.6463",
+        "lng": "-168.8889"
+      }
+    },
+    "phone": "(775)976-6794 x41206",
+    "website": "conrad.com",
+    "company": {
+      "name": "Yost and Sons",
+      "catchPhrase": "Switchable contextually-based project",
+      "bs": "aggregate real-time technologies"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Clementina DuBuque",
+    "username": "Moriah.Stanton",
+    "email": "Rey.Padberg@karina.biz",
+    "address": {
+      "street": "Kattie Turnpike",
+      "suite": "Suite 198",
+      "city": "Lebsackbury",
+      "zipcode": "31428-2261",
+      "geo": {
+        "lat": "-38.2386",
+        "lng": "57.2232"
+      }
+    },
+    "phone": "024-648-3804",
+    "website": "ambrose.net",
+    "company": {
+      "name": "Hoeger LLC",
+      "catchPhrase": "Centralized empowering task-force",
+      "bs": "target end-to-end models"
+    }
+  }
+]
+2026-04-06 20:22:50 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_api_real.py::test_get_users_real
+2026-04-06 20:22:50 | INFO  | automation_framework.tests | [TEST START] tests/test_config.py::test_load_config
+2026-04-06 20:22:50 | INFO  | automation_framework.tests | [TEST END] tests/test_config.py::test_load_config
+2026-04-06 20:22:50 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_login.py::test_dang_nhap_that_bai
+2026-04-06 20:22:50 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-04-06 20:22:57 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_login.py::test_dang_nhap_that_bai
+2026-04-06 20:23:26 | INFO  | automation_framework.tests | [TEST START] tests/api/test_api_client.py::test_api_client_get
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST] GET https://fake-api.com/users
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API RESPONSE BODY] {"message": "success"}
+2026-04-06 20:23:26 | INFO  | automation_framework.tests | [TEST END] tests/api/test_api_client.py::test_api_client_get
+2026-04-06 20:23:26 | INFO  | automation_framework.tests | [TEST START] tests/api/test_api_client.py::test_api_client_post
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST] POST https://fake-api.com/auth/login
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'username': 'admin', 'password': '123456'}
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API RESPONSE BODY] {"message": "success"}
+2026-04-06 20:23:26 | INFO  | automation_framework.tests | [TEST END] tests/api/test_api_client.py::test_api_client_post
+2026-04-06 20:23:26 | INFO  | automation_framework.tests | [TEST START] tests/api/test_auth_api.py::test_api_login_success
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/api/login
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:26 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'username': 'admin', 'password': '123'}
+2026-04-06 20:23:29 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/api/login - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/api/login (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/api/login (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/api/login (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:23:29 | INFO  | automation_framework.tests | [TEST END] tests/api/test_auth_api.py::test_api_login_success
+2026-04-06 20:23:29 | INFO  | automation_framework.tests | [TEST START] tests/api/test_demo.py::test_kiem_tra_ci_cd
+2026-04-06 20:23:29 | INFO  | automation_framework.tests | [TEST END] tests/api/test_demo.py::test_kiem_tra_ci_cd
+2026-04-06 20:23:29 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_get_users_schema
+2026-04-06 20:23:29 | INFO  | automation_framework.api_client | [API REQUEST] GET http://192.168.1.18:5000/api/users
+2026-04-06 20:23:29 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:32 | ERROR | automation_framework.api_client | [API ERROR] GET http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:23:32 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_get_users_schema
+2026-04-06 20:23:32 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_create_user
+2026-04-06 20:23:32 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/users
+2026-04-06 20:23:32 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:32 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'name': 'Tam', 'job': 'Tester'}
+2026-04-06 20:23:35 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:23:35 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_create_user
+2026-04-06 20:23:35 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_advanced.py::test_user_flow
+2026-04-06 20:23:35 | INFO  | automation_framework.api_client | [API REQUEST] POST http://192.168.1.18:5000/api/users
+2026-04-06 20:23:35 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:35 | INFO  | automation_framework.api_client | [API REQUEST JSON] {'name': 'Test', 'job': 'QA'}
+2026-04-06 20:23:38 | ERROR | automation_framework.api_client | [API ERROR] POST http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:23:38 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_advanced.py::test_user_flow
+2026-04-06 20:23:38 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_api.py::test_get_users
+2026-04-06 20:23:38 | INFO  | automation_framework.api_client | [API REQUEST] GET http://192.168.1.18:5000/api/users
+2026-04-06 20:23:38 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:40 | ERROR | automation_framework.api_client | [API ERROR] GET http://192.168.1.18:5000/api/users - HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 500, in request
+    self.endheaders()
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1277, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 1037, in _send_output
+    self.send(msg)
+  File "C:\Users\hoang\AppData\Local\Programs\Python\Python311\Lib\http\client.py", line 975, in send
+    self.connect()
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\urllib3\util\retry.py", line 535, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\job_all\Auto test\Code_ver_2\automation_framework\core\api_client.py", line 60, in request
+    response = self.session.request(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\job_all\Auto test\CODE_VER_2\automation_framework\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='host.docker.internal', port=5000): Max retries exceeded with url: /api/users (Caused by NewConnectionError("HTTPConnection(host='host.docker.internal', port=5000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"))
+2026-04-06 20:23:40 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_api.py::test_get_users
+2026-04-06 20:23:40 | INFO  | automation_framework.tests | [TEST START] tests/api/test_user_api_real.py::test_get_users_real
+2026-04-06 20:23:40 | INFO  | automation_framework.api_client | [API REQUEST] GET https://jsonplaceholder.typicode.com/users
+2026-04-06 20:23:40 | INFO  | automation_framework.api_client | [API REQUEST HEADERS] {'Content-Type': 'application/json'}
+2026-04-06 20:23:41 | INFO  | automation_framework.api_client | [API RESPONSE] status_code=200
+2026-04-06 20:23:41 | INFO  | automation_framework.api_client | [API RESPONSE BODY] [
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ervin Howell",
+    "username": "Antonette",
+    "email": "Shanna@melissa.tv",
+    "address": {
+      "street": "Victor Plains",
+      "suite": "Suite 879",
+      "city": "Wisokyburgh",
+      "zipcode": "90566-7771",
+      "geo": {
+        "lat": "-43.9509",
+        "lng": "-34.4618"
+      }
+    },
+    "phone": "010-692-6593 x09125",
+    "website": "anastasia.net",
+    "company": {
+      "name": "Deckow-Crist",
+      "catchPhrase": "Proactive didactic contingency",
+      "bs": "synergize scalable supply-chains"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Clementine Bauch",
+    "username": "Samantha",
+    "email": "Nathan@yesenia.net",
+    "address": {
+      "street": "Douglas Extension",
+      "suite": "Suite 847",
+      "city": "McKenziehaven",
+      "zipcode": "59590-4157",
+      "geo": {
+        "lat": "-68.6102",
+        "lng": "-47.0653"
+      }
+    },
+    "phone": "1-463-123-4447",
+    "website": "ramiro.info",
+    "company": {
+      "name": "Romaguera-Jacobson",
+      "catchPhrase": "Face to face bifurcated interface",
+      "bs": "e-enable strategic applications"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "username": "Karianne",
+    "email": "Julianne.OConner@kory.org",
+    "address": {
+      "street": "Hoeger Mall",
+      "suite": "Apt. 692",
+      "city": "South Elvis",
+      "zipcode": "53919-4257",
+      "geo": {
+        "lat": "29.4572",
+        "lng": "-164.2990"
+      }
+    },
+    "phone": "493-170-9623 x156",
+    "website": "kale.biz",
+    "company": {
+      "name": "Robel-Corkery",
+      "catchPhrase": "Multi-tiered zero tolerance productivity",
+      "bs": "transition cutting-edge web services"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Chelsey Dietrich",
+    "username": "Kamren",
+    "email": "Lucio_Hettinger@annie.ca",
+    "address": {
+      "street": "Skiles Walks",
+      "suite": "Suite 351",
+      "city": "Roscoeview",
+      "zipcode": "33263",
+      "geo": {
+        "lat": "-31.8129",
+        "lng": "62.5342"
+      }
+    },
+    "phone": "(254)954-1289",
+    "website": "demarco.info",
+    "company": {
+      "name": "Keebler LLC",
+      "catchPhrase": "User-centric fault-tolerant solution",
+      "bs": "revolutionize end-to-end systems"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Mrs. Dennis Schulist",
+    "username": "Leopoldo_Corkery",
+    "email": "Karley_Dach@jasper.info",
+    "address": {
+      "street": "Norberto Crossing",
+      "suite": "Apt. 950",
+      "city": "South Christy",
+      "zipcode": "23505-1337",
+      "geo": {
+        "lat": "-71.4197",
+        "lng": "71.7478"
+      }
+    },
+    "phone": "1-477-935-8478 x6430",
+    "website": "ola.org",
+    "company": {
+      "name": "Considine-Lockman",
+      "catchPhrase": "Synchronised bottom-line interface",
+      "bs": "e-enable innovative applications"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Kurtis Weissnat",
+    "username": "Elwyn.Skiles",
+    "email": "Telly.Hoeger@billy.biz",
+    "address": {
+      "street": "Rex Trail",
+      "suite": "Suite 280",
+      "city": "Howemouth",
+      "zipcode": "58804-1099",
+      "geo": {
+        "lat": "24.8918",
+        "lng": "21.8984"
+      }
+    },
+    "phone": "210.067.6132",
+    "website": "elvis.io",
+    "company": {
+      "name": "Johns Group",
+      "catchPhrase": "Configurable multimedia task-force",
+      "bs": "generate enterprise e-tailers"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Nicholas Runolfsdottir V",
+    "username": "Maxime_Nienow",
+    "email": "Sherwood@rosamond.me",
+    "address": {
+      "street": "Ellsworth Summit",
+      "suite": "Suite 729",
+      "city": "Aliyaview",
+      "zipcode": "45169",
+      "geo": {
+        "lat": "-14.3990",
+        "lng": "-120.7677"
+      }
+    },
+    "phone": "586.493.6943 x140",
+    "website": "jacynthe.com",
+    "company": {
+      "name": "Abernathy Group",
+      "catchPhrase": "Implemented secondary concept",
+      "bs": "e-enable extensible e-tailers"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Glenna Reichert",
+    "username": "Delphine",
+    "email": "Chaim_McDermott@dana.io",
+    "address": {
+      "street": "Dayna Park",
+      "suite": "Suite 449",
+      "city": "Bartholomebury",
+      "zipcode": "76495-3109",
+      "geo": {
+        "lat": "24.6463",
+        "lng": "-168.8889"
+      }
+    },
+    "phone": "(775)976-6794 x41206",
+    "website": "conrad.com",
+    "company": {
+      "name": "Yost and Sons",
+      "catchPhrase": "Switchable contextually-based project",
+      "bs": "aggregate real-time technologies"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Clementina DuBuque",
+    "username": "Moriah.Stanton",
+    "email": "Rey.Padberg@karina.biz",
+    "address": {
+      "street": "Kattie Turnpike",
+      "suite": "Suite 198",
+      "city": "Lebsackbury",
+      "zipcode": "31428-2261",
+      "geo": {
+        "lat": "-38.2386",
+        "lng": "57.2232"
+      }
+    },
+    "phone": "024-648-3804",
+    "website": "ambrose.net",
+    "company": {
+      "name": "Hoeger LLC",
+      "catchPhrase": "Centralized empowering task-force",
+      "bs": "target end-to-end models"
+    }
+  }
+]
+2026-04-06 20:23:41 | INFO  | automation_framework.tests | [TEST END] tests/api/test_user_api_real.py::test_get_users_real
+2026-04-06 20:23:41 | INFO  | automation_framework.tests | [TEST START] tests/test_config.py::test_load_config
+2026-04-06 20:23:41 | INFO  | automation_framework.tests | [TEST END] tests/test_config.py::test_load_config
+2026-04-06 20:23:41 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_login.py::test_dang_nhap_that_bai
+2026-04-06 20:23:41 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-04-06 20:23:45 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_login.py::test_dang_nhap_that_bai
