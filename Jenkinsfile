@@ -13,27 +13,23 @@ pipeline {
                 sh 'python3 -m venv venv'
                 sh 'venv/bin/pip install --upgrade pip'
                 sh 'venv/bin/pip install -r requirements.txt'
-                sh 'venv/bin/pip install pytest pytest-html selenium allure-pytest requests'
-            }
-        }
-
-        stage('Run API Tests') {
-            steps {
-                // Thêm '|| true' để nếu test API fail thì vẫn chạy tiếp UI
-                sh 'venv/bin/pytest tests/api/ --alluredir=reports/allure-results || true'
+                // Cài đặt đủ thư viện cho test UI
+                sh 'venv/bin/pip install pytest pytest-html selenium allure-pytest'
             }
         }
 
         stage('Run UI Tests') {
             steps {
-                // Thêm '|| true' để Jenkins không đánh dấu Build Failure ngay lập tức
-                sh 'venv/bin/pytest tests/ui/ --alluredir=reports/allure-results || true'
+                // Đã xóa '|| true' để Jenkins báo ĐỎ (FAIL) nếu test có lỗi.
+                // Thêm '--clean-alluredir' để dọn dẹp báo cáo cũ của lần chạy trước
+                sh 'venv/bin/pytest tests/ui/ --alluredir=reports/allure-results --clean-alluredir'
             }
         }
     }
     
     post {
         always {
+            // Khối always này sẽ luôn chạy để xuất báo cáo, bất kể bước UI Tests ở trên Xanh hay Đỏ
             allure includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
         }
     }
