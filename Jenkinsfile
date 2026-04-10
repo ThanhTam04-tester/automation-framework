@@ -25,6 +25,12 @@ pipeline {
                 sh 'venv/bin/pytest tests/ui/ --alluredir=reports/allure-results --clean-alluredir'
             }
         }
+
+        stage('Run API Tests') {
+            steps {
+                sh 'venv/bin/pytest tests/api/ --alluredir=reports/allure-results || true'
+            }
+        }
     }
     
     post {
