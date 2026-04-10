@@ -15,7 +15,7 @@ def wait_for_preloader(driver):
         )
     except:
         pass
-    time.sleep(2) # Dừng 2 giây cực kỳ quan trọng để Carousel Web load xong
+    time.sleep(2)
 
 # ================= NHÓM 1: KHÁCH VÃNG LAI =================
 @allure.epic("UI Automation Testing")
@@ -49,23 +49,25 @@ class TestGuest:
 
     @allure.title("UI_03: Đặt phòng thành công (Happy Path)")
     def test_booking_happy_path(self, driver, config):
-        # 1. Chạy thẳng vào trang danh sách phòng
         driver.get(config["base_url"] + "/rooms")
-        time.sleep(3)
+        wait_for_preloader(driver)
         
-        with allure.step("Vào trang chi tiết phòng"):
-            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a.book-room-btn")
-            if len(links) > 0:
-                driver.execute_script("arguments[0].click();", links[0])
-                time.sleep(3)
-            else:
-                pytest.skip("Chưa có phòng nào trên hệ thống.")
-
-        with allure.step("Kiểm tra trạng thái phòng"):
-            # Kiểm tra xem Form đặt phòng có hiển thị không (hay là hiện nút Phòng Đã Đặt)
-            is_available = driver.execute_script("return document.getElementById('detailCustName') !== null;")
-            if not is_available:
-                pytest.skip("Phòng đầu tiên đã bị người khác đặt, hệ thống tự động ẩn form. Bỏ qua test.")
+        with allure.step("Tìm và vào trang chi tiết phòng đang TRỐNG"):
+            # Lấy tất cả các ô phòng trên màn hình
+            room_areas = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
+            found_empty = False
+            
+            for area in room_areas:
+                # Nếu text trong ô phòng có chữ 'Trống' thì mới bấm vào
+                if "Trống" in area.text:
+                    btn = area.find_element(By.CSS_SELECTOR, "a.book-room-btn")
+                    driver.execute_script("arguments[0].click();", btn)
+                    time.sleep(3)
+                    found_empty = True
+                    break
+            
+            if not found_empty:
+                pytest.skip("Tất cả các phòng đều đã được đặt hoặc bảo trì. Không có phòng trống để test.")
 
         with allure.step("Điền Form Đặt Phòng trong trang Chi tiết"):
             driver.execute_script("document.getElementById('detailCustName').value = 'Nguyen Van A';")
@@ -80,21 +82,22 @@ class TestGuest:
     @allure.title("UI_04: Đặt phòng thiếu thông tin bắt buộc")
     def test_booking_missing_info(self, driver, config):
         driver.get(config["base_url"] + "/rooms")
-        time.sleep(3)
+        wait_for_preloader(driver)
         
-        with allure.step("Vào trang chi tiết phòng"):
-            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a.book-room-btn")
-            if len(links) > 0:
-                driver.execute_script("arguments[0].click();", links[0])
-                time.sleep(3)
-            else:
-                pytest.skip("Chưa có phòng nào trên hệ thống.")
+        with allure.step("Tìm và vào trang chi tiết phòng đang TRỐNG"):
+            room_areas = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
+            found_empty = False
+            for area in room_areas:
+                if "Trống" in area.text:
+                    btn = area.find_element(By.CSS_SELECTOR, "a.book-room-btn")
+                    driver.execute_script("arguments[0].click();", btn)
+                    time.sleep(3)
+                    found_empty = True
+                    break
+            
+            if not found_empty:
+                pytest.skip("Tất cả các phòng đều đã được đặt. Không có phòng trống để test.")
         
-        with allure.step("Kiểm tra trạng thái phòng"):
-            is_available = driver.execute_script("return document.getElementById('detailCustName') !== null;")
-            if not is_available:
-                pytest.skip("Phòng đầu tiên không trống, hệ thống ẩn form. Bỏ qua test.")
-
         with allure.step("Cố tình bỏ trống SĐT"):
             driver.execute_script("document.getElementById('detailCustName').value = 'Nguyen Van B';")
             driver.execute_script("document.getElementById('detailCustPhone').value = '';") # Bỏ trống
@@ -149,7 +152,6 @@ class TestCustomer:
     def test_check_my_bookings(self, driver, config):
         rand_email = f"user{random.randint(1000,9999)}@gmail.com"
         
-        # Đăng ký
         driver.get(config["base_url"] + "/register")
         wait_for_preloader(driver)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "full_name"))).send_keys("Khách")
@@ -159,7 +161,6 @@ class TestCustomer:
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
         time.sleep(2)
 
-        # Đăng nhập
         driver.get(config["base_url"] + "/login")
         wait_for_preloader(driver)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(rand_email)
@@ -167,7 +168,6 @@ class TestCustomer:
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
         time.sleep(2)
 
-        # Vào trang My Bookings
         driver.get(config["base_url"] + "/my-bookings")
         wait_for_preloader(driver)
         with allure.step("Xác minh hiển thị bảng"):
@@ -184,15 +184,13 @@ class TestAdmin:
         driver.get(config["base_url"] + "/login")
         wait_for_preloader(driver)
         
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys("admin@palatin.com")
-        driver.find_element(By.NAME, "password").send_keys("123456")
+        # SỬ DỤNG TÀI KHOẢN ADMIN CHUẨN TRONG DB CỦA BẠN
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys("admin@gmail.com")
+        driver.find_element(By.NAME, "password").send_keys("123")
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
         time.sleep(2)
         
-        if "login" in driver.current_url:
-            pytest.skip("Database chưa có tài khoản Admin. Bỏ qua test.")
-        else:
-            assert "admin" in driver.current_url
+        assert "admin" in driver.current_url
 
     @allure.title("UI_10 & 11: Admin quản lý đơn đặt phòng")
     def test_admin_manage_booking(self, driver, config):
