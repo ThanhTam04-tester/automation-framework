@@ -84,6 +84,7 @@ class TestGuest:
             assert "Vui lòng điền đủ" in alert.text
             alert.accept()
 
+
     @allure.title("UI_05: Đăng ký tài khoản Khách hàng mới")
     def test_register_new_user(self, driver, config):
         driver.get(config["base_url"] + "/register")
