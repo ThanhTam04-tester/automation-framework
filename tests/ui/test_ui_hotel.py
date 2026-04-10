@@ -8,13 +8,14 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # ================= HÀM HỖ TRỢ CHỜ TẢI TRANG =================
 def wait_for_preloader(driver):
-    """Hàm này ép Robot phải đứng chờ cho đến khi cái vòng xoay xoay (preloader) biến mất"""
+    """Hàm này ép Robot chờ preloader tắt và các hiệu ứng Slider dừng hẳn"""
     try:
         WebDriverWait(driver, 10).until(
             EC.invisibility_of_element_located((By.CLASS_NAME, "preloader"))
         )
     except:
         pass
+    time.sleep(2) # Dừng 2 giây cực kỳ quan trọng để Carousel Web load xong
 
 # ================= NHÓM 1: KHÁCH VÃNG LAI =================
 @allure.epic("UI Automation Testing")
@@ -44,7 +45,6 @@ class TestGuest:
                 time.sleep(2)
                 assert "/room/" in driver.current_url
             else:
-                # Nếu Dev chưa code nút này, Robot sẽ tự động Bỏ qua (Skip) chứ không báo Lỗi (Đỏ)
                 pytest.skip("Giao diện hiện tại chưa có nút 'Xem chi tiết'.")
 
     @allure.title("UI_03: Đặt phòng thành công (Happy Path)")
@@ -53,8 +53,11 @@ class TestGuest:
         wait_for_preloader(driver)
         
         with allure.step("Điền Form Đặt Phòng"):
-            # Bắt buộc phải chờ ô Nhập Tên xuất hiện rõ ràng mới gõ
-            name_input = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, "custName")))
+            # Dùng presence thay vì visibility để bỏ qua hiệu ứng che khuất, và cuộn chuột xuống
+            name_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "custName")))
+            driver.execute_script("arguments[0].scrollIntoView(true);", name_input)
+            time.sleep(1)
+            
             name_input.send_keys("Nguyen Van A")
             driver.find_element(By.ID, "custPhone").send_keys("0901234567")
             driver.execute_script("document.getElementById('roomSelect').value = '2';")
@@ -73,7 +76,10 @@ class TestGuest:
         wait_for_preloader(driver)
         
         with allure.step("Cố tình bỏ trống SĐT"):
-            name_input = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, "custName")))
+            name_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "custName")))
+            driver.execute_script("arguments[0].scrollIntoView(true);", name_input)
+            time.sleep(1)
+            
             name_input.send_keys("Nguyen Van B")
             driver.execute_script("document.getElementById('roomSelect').value = '1';")
             
@@ -92,7 +98,7 @@ class TestGuest:
         
         with allure.step("Điền thông tin đăng ký hợp lệ"):
             rand_email = f"khachmoi{random.randint(1000, 99999)}@gmail.com"
-            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.NAME, "full_name"))).send_keys("Khách Hàng")
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "full_name"))).send_keys("Khách Hàng")
             driver.find_element(By.NAME, "email").send_keys(rand_email)
             driver.find_element(By.NAME, "phone").send_keys("0911222333")
             driver.find_element(By.NAME, "password").send_keys("123456")
@@ -115,7 +121,7 @@ class TestCustomer:
         wait_for_preloader(driver)
         
         with allure.step("Nhập sai thông tin"):
-            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.NAME, "email"))).send_keys("sai@gmail.com")
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys("sai@gmail.com")
             driver.find_element(By.NAME, "password").send_keys("matkhausai")
             btn = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
             driver.execute_script("arguments[0].click();", btn)
@@ -127,13 +133,12 @@ class TestCustomer:
 
     @allure.title("UI_06: Khách kiểm tra Lịch sử đặt phòng (My Bookings)")
     def test_check_my_bookings(self, driver, config):
-        # Tạo 1 user ảo và đăng nhập để tránh bị chặn như Admin
         rand_email = f"user{random.randint(1000,9999)}@gmail.com"
         
         # Đăng ký
         driver.get(config["base_url"] + "/register")
         wait_for_preloader(driver)
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.NAME, "full_name"))).send_keys("Khách")
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "full_name"))).send_keys("Khách")
         driver.find_element(By.NAME, "email").send_keys(rand_email)
         driver.find_element(By.NAME, "phone").send_keys("0900")
         driver.find_element(By.NAME, "password").send_keys("123456")
@@ -143,7 +148,7 @@ class TestCustomer:
         # Đăng nhập
         driver.get(config["base_url"] + "/login")
         wait_for_preloader(driver)
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.NAME, "email"))).send_keys(rand_email)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(rand_email)
         driver.find_element(By.NAME, "password").send_keys("123456")
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
         time.sleep(2)
@@ -165,7 +170,7 @@ class TestAdmin:
         driver.get(config["base_url"] + "/login")
         wait_for_preloader(driver)
         
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.NAME, "email"))).send_keys("admin@palatin.com")
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys("admin@palatin.com")
         driver.find_element(By.NAME, "password").send_keys("123456")
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
         time.sleep(2)
