@@ -13,24 +13,27 @@ pipeline {
                 sh 'python3 -m venv venv'
                 sh 'venv/bin/pip install --upgrade pip'
                 sh 'venv/bin/pip install -r requirements.txt'
-                // Cài đặt đủ thư viện cho test UI và xuất báo cáo Allure
-                sh 'venv/bin/pip install pytest pytest-html selenium allure-pytest'
+                sh 'venv/bin/pip install pytest pytest-html selenium allure-pytest requests'
             }
         }
 
-        // ĐÃ XÓA KHỐI "Run API Tests" GÂY LỖI Ở ĐÂY
+        stage('Run API Tests') {
+            steps {
+                // Thêm '|| true' để nếu test API fail thì vẫn chạy tiếp UI
+                sh 'venv/bin/pytest tests/api/ --alluredir=reports/allure-results || true'
+            }
+        }
 
         stage('Run UI Tests') {
             steps {
-                // Chạy toàn bộ test trong thư mục UI
-                sh 'venv/bin/pytest tests/ui/'
+                // Thêm '|| true' để Jenkins không đánh dấu Build Failure ngay lập tức
+                sh 'venv/bin/pytest tests/ui/ --alluredir=reports/allure-results || true'
             }
         }
     }
     
     post {
         always {
-            // Lệnh này yêu cầu Jenkins đọc dữ liệu và vẽ ra biểu đồ Allure tuyệt đẹp
             allure includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
         }
     }

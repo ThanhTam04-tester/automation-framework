@@ -18,7 +18,7 @@ class TestAuthentication:
         
         with allure.step("Bấm nút Đăng ký"):
             driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
-            time.sleep(2)
+            time.sleep(5)
             # Kiểm tra xem có được chuyển hướng không hoặc có thông báo thành công không
             assert "login" in driver.current_url or "register" in driver.current_url
 
@@ -31,7 +31,7 @@ class TestAuthentication:
         
         with allure.step("Bấm nút Đăng nhập"):
             driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
-            time.sleep(2)
+            time.sleep(5)
             assert "login" not in driver.current_url # Chuyển hướng khỏi trang login
 
     @allure.title("TC_03: Đăng nhập thất bại (Sai mật khẩu)")

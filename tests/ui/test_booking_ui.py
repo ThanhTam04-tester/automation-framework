@@ -14,7 +14,7 @@ def test_dat_phong_thanh_cong(driver, config):
     with allure.step("1. Truy cập vào trang chủ Palatin Hotel"):
         # Lấy URL từ file env.dev.yaml thay vì viết cứng
         driver.get(config["base_url"])
-        time.sleep(2)
+        time.sleep(5)
 
     with allure.step("2. Nhập thông tin Khách hàng"):
         # Lấy đúng ID từ file index.html của bạn
@@ -34,7 +34,7 @@ def test_dat_phong_thanh_cong(driver, config):
         
         # Dùng JS Click để click thủng mọi thành phần cản đường
         driver.execute_script("arguments[0].click();", btn)
-        time.sleep(2)
+        time.sleep(5)
 
     with allure.step("5. Xác minh thông báo đặt phòng"):
         # Ở đây vì web bạn dùng alert() JS, nên ta phải bắt Alert
