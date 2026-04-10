@@ -54,20 +54,22 @@ class TestGuest:
         time.sleep(3)
         
         with allure.step("Vào trang chi tiết phòng"):
-            # Lấy thẻ <a> (link) đầu tiên trong khu vực phòng để bấm vào xem chi tiết
-            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a")
+            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a.book-room-btn")
             if len(links) > 0:
                 driver.execute_script("arguments[0].click();", links[0])
                 time.sleep(3)
             else:
-                pytest.skip("Chưa có phòng nào để test đặt phòng.")
+                pytest.skip("Chưa có phòng nào trên hệ thống.")
+
+        with allure.step("Kiểm tra trạng thái phòng"):
+            # Kiểm tra xem Form đặt phòng có hiển thị không (hay là hiện nút Phòng Đã Đặt)
+            is_available = driver.execute_script("return document.getElementById('detailCustName') !== null;")
+            if not is_available:
+                pytest.skip("Phòng đầu tiên đã bị người khác đặt, hệ thống tự động ẩn form. Bỏ qua test.")
 
         with allure.step("Điền Form Đặt Phòng trong trang Chi tiết"):
-            # Dùng ID MỚI nằm trong file room_detail.html của bạn
             driver.execute_script("document.getElementById('detailCustName').value = 'Nguyen Van A';")
             driver.execute_script("document.getElementById('detailCustPhone').value = '0901234567';")
-            
-            # Gọi trực tiếp hàm JS đặt phòng mà bạn đã viết trong thẻ <script>
             driver.execute_script("submitDetailBooking();")
             
         with allure.step("Xác minh Popup Thành Công"):
@@ -81,18 +83,21 @@ class TestGuest:
         time.sleep(3)
         
         with allure.step("Vào trang chi tiết phòng"):
-            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a")
+            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a.book-room-btn")
             if len(links) > 0:
                 driver.execute_script("arguments[0].click();", links[0])
                 time.sleep(3)
             else:
-                pytest.skip("Chưa có phòng nào để test đặt phòng.")
+                pytest.skip("Chưa có phòng nào trên hệ thống.")
         
+        with allure.step("Kiểm tra trạng thái phòng"):
+            is_available = driver.execute_script("return document.getElementById('detailCustName') !== null;")
+            if not is_available:
+                pytest.skip("Phòng đầu tiên không trống, hệ thống ẩn form. Bỏ qua test.")
+
         with allure.step("Cố tình bỏ trống SĐT"):
             driver.execute_script("document.getElementById('detailCustName').value = 'Nguyen Van B';")
             driver.execute_script("document.getElementById('detailCustPhone').value = '';") # Bỏ trống
-            
-            # Bấm nút đặt phòng
             driver.execute_script("submitDetailBooking();")
             
         with allure.step("Xác minh hệ thống báo lỗi"):
