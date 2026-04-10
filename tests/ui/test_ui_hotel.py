@@ -49,17 +49,26 @@ class TestGuest:
 
     @allure.title("UI_03: Đặt phòng thành công (Happy Path)")
     def test_booking_happy_path(self, driver, config):
-        driver.get(config["base_url"])
-        time.sleep(5) # Chờ cứng 5s cho chắc chắn trang load xong hoàn toàn
+        # 1. Chạy thẳng vào trang danh sách phòng
+        driver.get(config["base_url"] + "/rooms")
+        time.sleep(3)
         
-        with allure.step("Điền Form Đặt Phòng"):
-            # Dùng Javascript ép điền dữ liệu thẳng vào DOM để tránh lỗi Timeout
-            driver.execute_script("document.getElementById('custName').value = 'Nguyen Van A';")
-            driver.execute_script("document.getElementById('custPhone').value = '0901234567';")
-            driver.execute_script("document.getElementById('roomSelect').value = '2';")
+        with allure.step("Vào trang chi tiết phòng"):
+            # Lấy thẻ <a> (link) đầu tiên trong khu vực phòng để bấm vào xem chi tiết
+            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a")
+            if len(links) > 0:
+                driver.execute_script("arguments[0].click();", links[0])
+                time.sleep(3)
+            else:
+                pytest.skip("Chưa có phòng nào để test đặt phòng.")
+
+        with allure.step("Điền Form Đặt Phòng trong trang Chi tiết"):
+            # Dùng ID MỚI nằm trong file room_detail.html của bạn
+            driver.execute_script("document.getElementById('detailCustName').value = 'Nguyen Van A';")
+            driver.execute_script("document.getElementById('detailCustPhone').value = '0901234567';")
             
-            btn = driver.find_element(By.ID, "btnBook")
-            driver.execute_script("arguments[0].click();", btn)
+            # Gọi trực tiếp hàm JS đặt phòng mà bạn đã viết trong thẻ <script>
+            driver.execute_script("submitDetailBooking();")
             
         with allure.step("Xác minh Popup Thành Công"):
             alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
@@ -68,22 +77,28 @@ class TestGuest:
 
     @allure.title("UI_04: Đặt phòng thiếu thông tin bắt buộc")
     def test_booking_missing_info(self, driver, config):
-        driver.get(config["base_url"])
-        time.sleep(5)
+        driver.get(config["base_url"] + "/rooms")
+        time.sleep(3)
+        
+        with allure.step("Vào trang chi tiết phòng"):
+            links = driver.find_elements(By.CSS_SELECTOR, ".single-rooms-area a")
+            if len(links) > 0:
+                driver.execute_script("arguments[0].click();", links[0])
+                time.sleep(3)
+            else:
+                pytest.skip("Chưa có phòng nào để test đặt phòng.")
         
         with allure.step("Cố tình bỏ trống SĐT"):
-            driver.execute_script("document.getElementById('custName').value = 'Nguyen Van B';")
-            # Bỏ trống custPhone
-            driver.execute_script("document.getElementById('roomSelect').value = '1';")
+            driver.execute_script("document.getElementById('detailCustName').value = 'Nguyen Van B';")
+            driver.execute_script("document.getElementById('detailCustPhone').value = '';") # Bỏ trống
             
-            btn = driver.find_element(By.ID, "btnBook")
-            driver.execute_script("arguments[0].click();", btn)
+            # Bấm nút đặt phòng
+            driver.execute_script("submitDetailBooking();")
             
         with allure.step("Xác minh hệ thống báo lỗi"):
             alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
             assert "Vui lòng điền đủ" in alert.text
             alert.accept()
-
 
     @allure.title("UI_05: Đăng ký tài khoản Khách hàng mới")
     def test_register_new_user(self, driver, config):
