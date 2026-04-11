@@ -3,6 +3,7 @@ import allure
 import time
 import random
 import os
+import tempfile
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
@@ -61,61 +62,54 @@ class TestPalatinUI:
         time.sleep(2)
         assert "sai email hoặc mật khẩu" in driver.find_element(By.CSS_SELECTOR, ".alert-danger").text.lower()
 
-    @allure.title("UI_05 & 06: Test kịch bản đặt phòng (Thiếu thông tin -> Cảnh báo -> Đặt thành công)")
+    @allure.title("UI_05 & 06: Cảnh báo điền thiếu và Chạy lặp Đặt toàn bộ phòng trống")
     def test_05_06_booking_flow(self, driver, config):
         driver.get(config["base_url"] + "/rooms")
         wait_for_preloader(driver)
         
-        # 1. Tìm phòng trống và click Xem Chi Tiết
+        # 1. Tìm tất cả các link của các phòng đang "Trống"
+        empty_room_links = []
         room_areas = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
-        room_found = False
         for area in room_areas:
             if "Trống" in area.text:
-                driver.execute_script("arguments[0].click();", area.find_element(By.CSS_SELECTOR, "a.book-room-btn"))
-                room_found = True
-                break
+                link = area.find_element(By.CSS_SELECTOR, "a.book-room-btn").get_attribute("href")
+                empty_room_links.append(link)
                 
-        if not room_found:
-            pytest.skip("Không có phòng nào đang trống để test đặt phòng.")
+        if not empty_room_links:
+            pytest.skip("Database hiện không có phòng nào Trống. Hãy reset database!")
             
-        time.sleep(2)
-        
-        # 2. Đợi form đặt phòng hiện ra
+        # 2. Vô phòng trống đầu tiên để Test cảnh báo điền thiếu thông tin
+        driver.get(empty_room_links[0])
+        wait_for_preloader(driver)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "detailCustName")))
         
-        # 3. Test Case 05: Cố tình điền thiếu (chỉ điền tên, bỏ trống SDT, ngày)
-        name_input = driver.find_element(By.ID, "detailCustName")
-        name_input.clear()
-        name_input.send_keys("Khách Test Booking")
+        driver.execute_script("document.getElementById('detailCustName').value = 'Khách Test Thiếu';")
+        driver.execute_script("document.getElementById('detailCustPhone').value = '';") # Bỏ trống sdt
+        driver.execute_script("submitDetailBooking();")
         
-        # Click nút Đặt
-        submit_btn = driver.find_element(By.CSS_SELECTOR, "button[onclick='submitDetailBooking()']")
-        driver.execute_script("arguments[0].click();", submit_btn)
-        
-        # Bắt alert cảnh báo điền thiếu
         alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
         assert "Vui lòng điền đủ" in alert.text
         alert.accept()
         time.sleep(1)
         
-        # 4. Test Case 06: Điền đầy đủ thông tin để đặt thành công
-        phone_input = driver.find_element(By.ID, "detailCustPhone")
-        phone_input.clear()
-        phone_input.send_keys("0999888777")
-        
-        # Đối với ô type="date", send_keys hoạt động tốt nhất định dạng YYYY-MM-DD
-        # Mình dùng hàm JS để gán cho chắc chắn 100% không bị kẹt calendar popup
-        driver.execute_script("document.getElementById('detailCheckIn').value = '2026-10-10';")
-        driver.execute_script("document.getElementById('detailCheckOut').value = '2026-10-15';")
-        
-        # Click nút Đặt lần nữa
-        driver.execute_script("arguments[0].click();", submit_btn)
-        
-        # Bắt alert Thành Công
-        success_alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
-        assert "THÀNH CÔNG" in success_alert.text.upper()
-        success_alert.accept()
-        time.sleep(2)
+        # 3. Lặp qua tất cả các phòng trống và Đặt thành công
+        for index, link in enumerate(empty_room_links):
+            driver.get(link)
+            wait_for_preloader(driver)
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "detailCustName")))
+            
+            driver.execute_script(f"document.getElementById('detailCustName').value = 'Khách Hàng {index}';")
+            driver.execute_script("document.getElementById('detailCustPhone').value = '0999888777';")
+            driver.execute_script("document.getElementById('detailCheckIn').value = '2026-10-10';")
+            driver.execute_script("document.getElementById('detailCheckOut').value = '2026-10-15';")
+            
+            submit_btn = driver.find_element(By.CSS_SELECTOR, "button[onclick='submitDetailBooking()']")
+            driver.execute_script("arguments[0].click();", submit_btn)
+            
+            success_alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
+            assert "THÀNH CÔNG" in success_alert.text.upper()
+            success_alert.accept()
+            time.sleep(1)
 
 
     # ================= NHÓM 2: QUẢN TRỊ VIÊN (ADMIN) =================
@@ -130,30 +124,28 @@ class TestPalatinUI:
         time.sleep(2)
         assert "admin" in driver.current_url
 
-    @allure.title("UI_08: Admin thêm phòng mới")
+    @allure.title("UI_08: Admin thêm phòng mới (Tự động giả lập ảnh upload)")
     def test_08_admin_add_new_room(self, driver, config):
         driver.get(config["base_url"] + "/admin/dashboard")
         wait_for_preloader(driver)
         
-        # QUAN TRỌNG: Phải click chọn sang tab Quản lý phòng
-        room_tab = driver.find_element(By.ID, "room-tab")
-        driver.execute_script("arguments[0].click();", room_tab)
-        
-        # Đợi form thêm phòng hiển thị
+        # ÉP MỞ TAB PHÒNG BẰNG JQUERY
+        driver.execute_script("$('#room-tab').tab('show');")
         WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.NAME, "name")))
         
-        driver.find_element(By.NAME, "name").send_keys("Phòng Vô Cực")
+        driver.find_element(By.NAME, "name").send_keys("Phòng Thử Nghiệm Tự Động")
         driver.find_element(By.NAME, "type").send_keys("Super VIP")
         driver.find_element(By.NAME, "price").send_keys("5000000")
         driver.find_element(By.NAME, "capacity_adults").send_keys("2")
         driver.find_element(By.NAME, "capacity_children").send_keys("1")
         
-        # Xử lý upload file an toàn đa nền tảng
-        test_img_path = r"D:\z\ht3.jpg"
-        if os.path.exists(test_img_path):
-            driver.find_element(By.NAME, "image").send_keys(test_img_path)
-        else:
-            print("Chạy trên môi trường ảo, bỏ qua bước upload ảnh cục bộ.")
+        # Tự động tạo 1 file ảnh ảo để upload qua Jenkins không bị lỗi
+        fd, temp_img_path = tempfile.mkstemp(suffix=".jpg")
+        with open(temp_img_path, 'wb') as f:
+            f.write(b'\xFF\xD8\xFF\xE0\x00\x10\x4A\x46\x49\x46\x00\x01') # Header chuẩn của file JPG
+        os.close(fd)
+        
+        driver.find_element(By.NAME, "image").send_keys(temp_img_path)
             
         btn_save = driver.find_elements(By.CSS_SELECTOR, "form[action*='add'] button[type='submit']")[0]
         driver.execute_script("arguments[0].click();", btn_save)
@@ -165,13 +157,14 @@ class TestPalatinUI:
         driver.get(config["base_url"] + "/admin/dashboard")
         wait_for_preloader(driver)
         
-        room_tab = driver.find_element(By.ID, "room-tab")
-        driver.execute_script("arguments[0].click();", room_tab)
+        # ÉP MỞ TAB PHÒNG
+        driver.execute_script("$('#room-tab').tab('show');")
         time.sleep(1)
         
         edit_btns = driver.find_elements(By.CSS_SELECTOR, "button[data-target^='#editRoomModal']")
         if edit_btns:
-            driver.execute_script("arguments[0].click();", edit_btns[0])
+            # Chọn sửa phòng cuối cùng (phòng vừa thêm)
+            driver.execute_script("arguments[0].click();", edit_btns[-1])
             time.sleep(1) 
             
             price_input = driver.find_element(By.CSS_SELECTOR, ".modal.show input[name='price']")
@@ -187,15 +180,16 @@ class TestPalatinUI:
         driver.get(config["base_url"] + "/admin/dashboard")
         wait_for_preloader(driver)
         
-        # Tab mặc định là tab Booking, cứ tìm nút approve
+        # Tab mặc định là tab Booking, duyệt đơn hàng nếu có
         approve_btns = driver.find_elements(By.CSS_SELECTOR, "button[value='approve']")
         if len(approve_btns) > 0:
             driver.execute_script("arguments[0].click();", approve_btns[0])
             time.sleep(2)
             
-        # Sang Tab Phòng và bấm Nút Reset 
-        driver.execute_script("arguments[0].click();", driver.find_element(By.ID, "room-tab"))
+        # ÉP MỞ TAB PHÒNG
+        driver.execute_script("$('#room-tab').tab('show');")
         time.sleep(1)
+        
         reset_btns = driver.find_elements(By.CSS_SELECTOR, "form[action*='/reset/'] button")
         if reset_btns:
             driver.execute_script("arguments[0].click();", reset_btns[0])
@@ -207,7 +201,8 @@ class TestPalatinUI:
         driver.get(config["base_url"] + "/admin/dashboard")
         wait_for_preloader(driver)
         
-        driver.execute_script("arguments[0].click();", driver.find_element(By.ID, "room-tab"))
+        # ÉP MỞ TAB PHÒNG
+        driver.execute_script("$('#room-tab').tab('show');")
         time.sleep(1)
         
         delete_btns = driver.find_elements(By.CSS_SELECTOR, "form[action*='/delete/'] button")
