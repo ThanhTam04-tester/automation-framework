@@ -76,4 +76,4 @@ class TestBackendAPI:
             
         with allure.step("Xác minh Backend chặn và đá văng về trang Login (302)"):
             assert response.status_code == 302
-            assert "/login" in response.headers.get("Location", "")
+            assert "/login" in response.headers.get("Location", "") 

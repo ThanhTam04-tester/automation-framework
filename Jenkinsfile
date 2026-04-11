@@ -31,7 +31,7 @@ pipeline {
                 sh 'venv/bin/pytest tests/api/ --alluredir=reports/allure-results || true'
             }
         }
-    }
+    }  
     
     post {
         always {
