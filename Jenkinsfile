@@ -24,7 +24,7 @@ pipeline {
                 sh 'venv/bin/pytest tests/ --alluredir=reports/allure-results --clean-alluredir'
             }
         }
-    } 
+    }
     
     post {
         always {
