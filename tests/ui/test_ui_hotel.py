@@ -16,7 +16,6 @@ def wait_for_preloader(driver):
         )
     except: pass
     time.sleep(1.5)
-
 def login_as_admin(driver, base_url):
     """Hàm hỗ trợ: Đảm bảo luôn đăng nhập Admin trước khi test các chức năng quản trị"""
     driver.get(base_url + "/login")
