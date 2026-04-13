@@ -26,13 +26,9 @@ pipeline {
         }
     } 
     
-   post {
-    always {
-        script {
-            // Sửa lại path thành 'reports/allure-results' cho khớp với lệnh pytest bên trên
+    post {
+        always {
             allure includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
         }
-        
     }
-}
 }
