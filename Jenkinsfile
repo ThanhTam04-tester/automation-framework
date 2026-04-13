@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-            }
+            } 
         }
  
         stage('Install Python') {
@@ -28,7 +28,10 @@ pipeline {
     
     post {
         always {
-            allure includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
+            script {
+                // Sửa lại path thành 'reports/allure-results' cho khớp với lệnh pytest bên trên
+                allure includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
+            }
         }
     }
 }
