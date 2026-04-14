@@ -88,23 +88,22 @@ class TestPalatinUI:
         # Chụp ảnh thông báo lỗi
         allure.attach(driver.get_screenshot_as_png(), name="Anh_Loi_Dang_Nhap", attachment_type=AttachmentType.PNG)
 
+
+
     @allure.title("UI_05 & 06: Cảnh báo điền thiếu và Đặt phòng thành công")
     def test_05_06_booking_flow(self, driver, config):
         
         # =========================================================
-        # BƯỚC SETUP: Đăng nhập Admin để ép phòng số 1 thành "Trống" 
-        # Đảm bảo 100% lúc nào cũng có phòng để test, không bao giờ bị Skip!
+        # BƯỚC SETUP: Đăng nhập Admin để ép phòng ĐẦU TIÊN thành "Trống" 
         # =========================================================
         with allure.step("Tiền quyết (Setup): Admin dọn dẹp để có phòng trống"):
             login_as_admin(driver, config["base_url"])
             driver.get(config["base_url"] + "/admin/dashboard")
             wait_for_preloader(driver)
             
-            # Chuyển sang Tab danh sách phòng
             driver.execute_script("document.getElementById('room-tab').click();")
             time.sleep(1)
             
-            # Tìm ô Dropdown trạng thái đầu tiên và ép thành chữ 'Trống'
             status_dropdowns = driver.find_elements(By.NAME, "status")
             if len(status_dropdowns) > 0:
                 Select(status_dropdowns[0]).select_by_value("Trống")
@@ -115,20 +114,18 @@ class TestPalatinUI:
         # =========================================================
         # BẮT ĐẦU LUỒNG TEST CỦA KHÁCH HÀNG
         # =========================================================
-        with allure.step("1. Khách hàng vào danh sách phòng và chọn phòng Trống"):
+        with allure.step("1. Khách hàng vào danh sách phòng và chọn phòng đầu tiên"):
             driver.get(config["base_url"] + "/rooms")
             wait_for_preloader(driver)
             
-            # Quét danh sách phòng (bây giờ CHẮC CHẮN đã có phòng trống nhờ bước Setup ở trên)
-            empty_room_links = []
-            room_areas = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
-            for area in room_areas:
-                if "Trống" in area.text:
-                    link = area.find_element(By.CSS_SELECTOR, "a.book-room-btn").get_attribute("href")
-                    empty_room_links.append(link)
-                    
-            driver.get(empty_room_links[0])
-            wait_for_preloader(driver)
+            # Vì Admin đã reset phòng đầu tiên, ta chỉ việc bấm thẳng vào nút Xem Chi Tiết đầu tiên
+            btn_details = driver.find_elements(By.CSS_SELECTOR, "a.book-room-btn")
+            if len(btn_details) > 0:
+                driver.execute_script("arguments[0].click();", btn_details[0])
+            else:
+                pytest.fail("Không tìm thấy nút Xem Chi Tiết nào trên trang!")
+                
+            time.sleep(2)
             WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, "detailCustName")))
         
         with allure.step("2. Test cảnh báo khi cố tình điền THIẾU thông tin"):
@@ -148,6 +145,7 @@ class TestPalatinUI:
             driver.execute_script("document.getElementById('detailCheckOut').value = '2026-10-15';")
             
             with allure.step("Chụp ảnh Form Đặt Phòng đã điền đầy đủ"):
+                # Ảnh này sẽ xuất hiện trong Allure Report làm bằng chứng
                 allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Dat_Phong_Thanh_Cong", attachment_type=AttachmentType.PNG)
             
             submit_btn = driver.find_element(By.CSS_SELECTOR, "button[onclick='submitDetailBooking()']")
@@ -157,7 +155,6 @@ class TestPalatinUI:
             assert "THÀNH CÔNG" in success_alert.text.upper()
             success_alert.accept()
             time.sleep(2)
-
 
     # ================= NHÓM 2: QUẢN TRỊ VIÊN (ADMIN) =================
 
