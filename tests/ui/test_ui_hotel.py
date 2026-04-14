@@ -153,6 +153,10 @@ class TestPalatinUI:
             
             success_alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
             assert "THÀNH CÔNG" in success_alert.text.upper()
+
+            # Chụp ảnh Popup thông báo Đặt phòng thành công
+            allure.attach(driver.get_screenshot_as_png(), name="Anh_Popup_Thanh_Cong", attachment_type=AttachmentType.PNG)
+
             success_alert.accept()
             time.sleep(2)
 
