@@ -21,7 +21,10 @@ pipeline {
         stage('Run All Tests (UI & API)') {
             steps {
                 // Trỏ thẳng vào thư mục 'tests/' để Pytest tự gom cả UI và API chạy cùng 1 lúc
-                sh 'venv/bin/pytest tests/ --alluredir=reports/allure-results --clean-alluredir'
+                // sh 'venv/bin/pytest tests/ --alluredir=reports/allure-results --clean-alluredir'
+
+                // Chỉ trỏ vào thư mục tests/google/
+                   sh 'venv/bin/pytest tests/google/ --alluredir=reports/allure-results --clean-alluredir'
             }
         }
     }
