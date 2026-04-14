@@ -144,21 +144,21 @@ class TestPalatinUI:
             driver.execute_script("document.getElementById('detailCheckIn').value = '2026-10-10';")
             driver.execute_script("document.getElementById('detailCheckOut').value = '2026-10-15';")
             
-            with allure.step("Chụp ảnh Form Đặt Phòng đã điền đầy đủ"):
-                # Ảnh này sẽ xuất hiện trong Allure Report làm bằng chứng
-                allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Dat_Phong_Thanh_Cong", attachment_type=AttachmentType.PNG)
+            with allure.step("Chụp ảnh Form Đặt Phòng đã điền đầy đủ (Trước khi bấm Submit)"):
+                allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Day_Du_Data", attachment_type=AttachmentType.PNG)
             
             submit_btn = driver.find_element(By.CSS_SELECTOR, "button[onclick='submitDetailBooking()']")
             driver.execute_script("arguments[0].click();", submit_btn)
             
+            # Xử lý cái thông báo (Không được chụp ảnh ở đây)
             success_alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
             assert "THÀNH CÔNG" in success_alert.text.upper()
-
-            # Chụp ảnh Popup thông báo Đặt phòng thành công
-            allure.attach(driver.get_screenshot_as_png(), name="Anh_Popup_Thanh_Cong", attachment_type=AttachmentType.PNG)
-
-            success_alert.accept()
+            success_alert.accept() # Bắt buộc phải bấm OK đóng Alert trước!
             time.sleep(2)
+            
+            # Sau khi Alert đóng rồi, ta mới chụp ảnh màn hình sau khi đặt xong
+            with allure.step("Chụp ảnh giao diện sau khi đã đặt phòng thành công"):
+                allure.attach(driver.get_screenshot_as_png(), name="Anh_Giao_Dien_Sau_Khi_Dat", attachment_type=AttachmentType.PNG)
 
     # ================= NHÓM 2: QUẢN TRỊ VIÊN (ADMIN) =================
 
