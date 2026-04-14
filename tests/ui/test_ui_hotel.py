@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
+from allure_commons.types import AttachmentType
 
 def wait_for_preloader(driver):
     try:
@@ -16,6 +17,7 @@ def wait_for_preloader(driver):
         )
     except: pass
     time.sleep(1.5)
+
 def login_as_admin(driver, base_url):
     """Hàm hỗ trợ: Đảm bảo luôn đăng nhập Admin trước khi test các chức năng quản trị"""
     driver.get(base_url + "/login")
@@ -43,6 +45,8 @@ class TestPalatinUI:
         wait_for_preloader(driver)
         rooms = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
         assert len(rooms) > 0, "Không hiển thị phòng nào trên giao diện!"
+        # Chụp ảnh danh sách phòng
+        allure.attach(driver.get_screenshot_as_png(), name="Anh_Danh_Sach_Phong", attachment_type=AttachmentType.PNG)
 
     @allure.title("UI_02: Khách xem chi tiết phòng")
     def test_02_view_room_detail(self, driver, config):
@@ -52,6 +56,8 @@ class TestPalatinUI:
         driver.execute_script("arguments[0].click();", btn_details[0])
         time.sleep(2)
         assert "/room/" in driver.current_url
+        # Chụp ảnh chi tiết phòng
+        allure.attach(driver.get_screenshot_as_png(), name="Anh_Chi_Tiet_Phong", attachment_type=AttachmentType.PNG)
 
     @allure.title("UI_03: Đăng ký tài khoản khách hàng mới")
     def test_03_register_new_user(self, driver, config):
@@ -62,6 +68,10 @@ class TestPalatinUI:
         driver.find_element(By.NAME, "email").send_keys(rand_email)
         driver.find_element(By.NAME, "phone").send_keys("0911222333")
         driver.find_element(By.NAME, "password").send_keys("123456")
+        
+        # Chụp ảnh form đăng ký trước khi bấm
+        allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Dang_Ky", attachment_type=AttachmentType.PNG)
+        
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
         time.sleep(2)
         assert "login" in driver.current_url
@@ -75,13 +85,14 @@ class TestPalatinUI:
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
         time.sleep(2)
         assert "sai email hoặc mật khẩu" in driver.find_element(By.CSS_SELECTOR, ".alert-danger").text.lower()
+        # Chụp ảnh thông báo lỗi
+        allure.attach(driver.get_screenshot_as_png(), name="Anh_Loi_Dang_Nhap", attachment_type=AttachmentType.PNG)
 
     @allure.title("UI_05 & 06: Cảnh báo điền thiếu và Đặt phòng thành công")
     def test_05_06_booking_flow(self, driver, config):
         driver.get(config["base_url"] + "/rooms")
         wait_for_preloader(driver)
         
-        # 1. Tìm các link của phòng đang "Trống"
         empty_room_links = []
         room_areas = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
         for area in room_areas:
@@ -89,18 +100,16 @@ class TestPalatinUI:
                 link = area.find_element(By.CSS_SELECTOR, "a.book-room-btn").get_attribute("href")
                 empty_room_links.append(link)
                 
-        # Bỏ qua Test một cách an toàn nếu Database đang không có phòng trống
         if len(empty_room_links) == 0:
-            pytest.skip("Bỏ qua test vì hiện không có phòng nào Trống. Hãy để Test Admin chạy trước để sinh phòng mới.")
+            pytest.skip("Bỏ qua test vì hiện không có phòng nào Trống.")
             
-        # 2. Vô phòng trống đầu tiên để Test
         driver.get(empty_room_links[0])
         wait_for_preloader(driver)
         WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, "detailCustName")))
         
         # --- TEST CẢNH BÁO ĐIỀN THIẾU ---
         driver.execute_script("document.getElementById('detailCustName').value = 'Khách Test Thiếu';")
-        driver.execute_script("document.getElementById('detailCustPhone').value = '';") # Bỏ trống sdt
+        driver.execute_script("document.getElementById('detailCustPhone').value = '';")
         driver.execute_script("submitDetailBooking();")
         
         alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
@@ -113,6 +122,10 @@ class TestPalatinUI:
         driver.execute_script("document.getElementById('detailCustPhone').value = '0999888777';")
         driver.execute_script("document.getElementById('detailCheckIn').value = '2026-10-10';")
         driver.execute_script("document.getElementById('detailCheckOut').value = '2026-10-15';")
+        
+        with allure.step("Chụp ảnh Form Đặt Phòng đã điền đầy đủ"):
+            # CHỤP ẢNH TẠI ĐÂY: Form đã có đủ data, trước khi JS Alert hiện ra chặn màn hình
+            allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Dat_Phong_Thanh_Cong", attachment_type=AttachmentType.PNG)
         
         submit_btn = driver.find_element(By.CSS_SELECTOR, "button[onclick='submitDetailBooking()']")
         driver.execute_script("arguments[0].click();", submit_btn)
@@ -129,6 +142,8 @@ class TestPalatinUI:
     def test_07_admin_login_success(self, driver, config):
         login_as_admin(driver, config["base_url"])
         assert "admin" in driver.current_url
+        # Chụp ảnh trang quản trị Dashboard
+        allure.attach(driver.get_screenshot_as_png(), name="Anh_Admin_Dashboard", attachment_type=AttachmentType.PNG)
 
     @allure.title("UI_08: Admin thêm phòng mới (Tự động giả lập ảnh upload)")
     def test_08_admin_add_new_room(self, driver, config):
@@ -153,6 +168,9 @@ class TestPalatinUI:
         
         driver.find_element(By.NAME, "image").send_keys(temp_img_path)
             
+        with allure.step("Chụp ảnh form thêm phòng mới"):
+            allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Them_Phong", attachment_type=AttachmentType.PNG)
+
         btn_save = driver.find_elements(By.CSS_SELECTOR, "form[action*='add'] button[type='submit']")[0]
         driver.execute_script("arguments[0].click();", btn_save)
         time.sleep(3)
@@ -175,6 +193,9 @@ class TestPalatinUI:
             price_input = driver.find_element(By.CSS_SELECTOR, ".modal.show input[name='price']")
             price_input.clear()
             price_input.send_keys("999999")
+            
+            with allure.step("Chụp ảnh Modal sửa thông tin"):
+                allure.attach(driver.get_screenshot_as_png(), name="Anh_Modal_Sua_Phong", attachment_type=AttachmentType.PNG)
             
             save_edit_btn = driver.find_element(By.CSS_SELECTOR, ".modal.show button[type='submit']")
             driver.execute_script("arguments[0].click();", save_edit_btn)
@@ -212,6 +233,9 @@ class TestPalatinUI:
         
         delete_btns = driver.find_elements(By.CSS_SELECTOR, "form[action*='/delete/'] button")
         if delete_btns:
+            # Chụp ảnh trước khi bấm xóa
+            allure.attach(driver.get_screenshot_as_png(), name="Anh_Truoc_Khi_Xoa_Phong", attachment_type=AttachmentType.PNG)
+            
             driver.execute_script("arguments[0].click();", delete_btns[-1])
             alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
             alert.accept()
