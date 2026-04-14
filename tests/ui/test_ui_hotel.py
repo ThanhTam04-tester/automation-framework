@@ -90,50 +90,73 @@ class TestPalatinUI:
 
     @allure.title("UI_05 & 06: Cảnh báo điền thiếu và Đặt phòng thành công")
     def test_05_06_booking_flow(self, driver, config):
-        driver.get(config["base_url"] + "/rooms")
-        wait_for_preloader(driver)
         
-        empty_room_links = []
-        room_areas = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
-        for area in room_areas:
-            if "Trống" in area.text:
-                link = area.find_element(By.CSS_SELECTOR, "a.book-room-btn").get_attribute("href")
-                empty_room_links.append(link)
-                
-        if len(empty_room_links) == 0:
-            pytest.skip("Bỏ qua test vì hiện không có phòng nào Trống.")
+        # =========================================================
+        # BƯỚC SETUP: Đăng nhập Admin để ép phòng số 1 thành "Trống" 
+        # Đảm bảo 100% lúc nào cũng có phòng để test, không bao giờ bị Skip!
+        # =========================================================
+        with allure.step("Tiền quyết (Setup): Admin dọn dẹp để có phòng trống"):
+            login_as_admin(driver, config["base_url"])
+            driver.get(config["base_url"] + "/admin/dashboard")
+            wait_for_preloader(driver)
             
-        driver.get(empty_room_links[0])
-        wait_for_preloader(driver)
-        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, "detailCustName")))
+            # Chuyển sang Tab danh sách phòng
+            driver.execute_script("document.getElementById('room-tab').click();")
+            time.sleep(1)
+            
+            # Tìm ô Dropdown trạng thái đầu tiên và ép thành chữ 'Trống'
+            status_dropdowns = driver.find_elements(By.NAME, "status")
+            if len(status_dropdowns) > 0:
+                Select(status_dropdowns[0]).select_by_value("Trống")
+                save_status_btns = driver.find_elements(By.CSS_SELECTOR, "form[action*='/admin/rooms/status'] button.btn-dark")
+                driver.execute_script("arguments[0].click();", save_status_btns[0])
+                time.sleep(1.5)
+
+        # =========================================================
+        # BẮT ĐẦU LUỒNG TEST CỦA KHÁCH HÀNG
+        # =========================================================
+        with allure.step("1. Khách hàng vào danh sách phòng và chọn phòng Trống"):
+            driver.get(config["base_url"] + "/rooms")
+            wait_for_preloader(driver)
+            
+            # Quét danh sách phòng (bây giờ CHẮC CHẮN đã có phòng trống nhờ bước Setup ở trên)
+            empty_room_links = []
+            room_areas = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
+            for area in room_areas:
+                if "Trống" in area.text:
+                    link = area.find_element(By.CSS_SELECTOR, "a.book-room-btn").get_attribute("href")
+                    empty_room_links.append(link)
+                    
+            driver.get(empty_room_links[0])
+            wait_for_preloader(driver)
+            WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, "detailCustName")))
         
-        # --- TEST CẢNH BÁO ĐIỀN THIẾU ---
-        driver.execute_script("document.getElementById('detailCustName').value = 'Khách Test Thiếu';")
-        driver.execute_script("document.getElementById('detailCustPhone').value = '';")
-        driver.execute_script("submitDetailBooking();")
+        with allure.step("2. Test cảnh báo khi cố tình điền THIẾU thông tin"):
+            driver.execute_script("document.getElementById('detailCustName').value = 'Khách Test Thiếu';")
+            driver.execute_script("document.getElementById('detailCustPhone').value = '';")
+            driver.execute_script("submitDetailBooking();")
+            
+            alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
+            assert "Vui lòng điền đủ" in alert.text
+            alert.accept()
+            time.sleep(1)
         
-        alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
-        assert "Vui lòng điền đủ" in alert.text
-        alert.accept()
-        time.sleep(1)
-        
-        # --- TEST ĐIỀN ĐẦY ĐỦ ---
-        driver.execute_script("document.getElementById('detailCustName').value = 'Khách Đặt Full';")
-        driver.execute_script("document.getElementById('detailCustPhone').value = '0999888777';")
-        driver.execute_script("document.getElementById('detailCheckIn').value = '2026-10-10';")
-        driver.execute_script("document.getElementById('detailCheckOut').value = '2026-10-15';")
-        
-        with allure.step("Chụp ảnh Form Đặt Phòng đã điền đầy đủ"):
-            # CHỤP ẢNH TẠI ĐÂY: Form đã có đủ data, trước khi JS Alert hiện ra chặn màn hình
-            allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Dat_Phong_Thanh_Cong", attachment_type=AttachmentType.PNG)
-        
-        submit_btn = driver.find_element(By.CSS_SELECTOR, "button[onclick='submitDetailBooking()']")
-        driver.execute_script("arguments[0].click();", submit_btn)
-        
-        success_alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
-        assert "THÀNH CÔNG" in success_alert.text.upper()
-        success_alert.accept()
-        time.sleep(2)
+        with allure.step("3. Test điền ĐẦY ĐỦ và Đặt phòng thành công"):
+            driver.execute_script("document.getElementById('detailCustName').value = 'Khách Đặt Full';")
+            driver.execute_script("document.getElementById('detailCustPhone').value = '0999888777';")
+            driver.execute_script("document.getElementById('detailCheckIn').value = '2026-10-10';")
+            driver.execute_script("document.getElementById('detailCheckOut').value = '2026-10-15';")
+            
+            with allure.step("Chụp ảnh Form Đặt Phòng đã điền đầy đủ"):
+                allure.attach(driver.get_screenshot_as_png(), name="Anh_Form_Dat_Phong_Thanh_Cong", attachment_type=AttachmentType.PNG)
+            
+            submit_btn = driver.find_element(By.CSS_SELECTOR, "button[onclick='submitDetailBooking()']")
+            driver.execute_script("arguments[0].click();", submit_btn)
+            
+            success_alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
+            assert "THÀNH CÔNG" in success_alert.text.upper()
+            success_alert.accept()
+            time.sleep(2)
 
 
     # ================= NHÓM 2: QUẢN TRỊ VIÊN (ADMIN) =================
