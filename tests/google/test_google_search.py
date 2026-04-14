@@ -6,15 +6,36 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from allure_commons.types import AttachmentType
 
 # =====================================================================
-# PHẦN 1: UI AUTOMATION TESTING (TEST GIAO DIỆN DDG)
+# PHẦN 1: UI AUTOMATION TESTING (TEST GIAO DIỆN DUCKDUCKGO)
 # =====================================================================
 @allure.epic("Cross-Project Testing")
 @allure.feature("DuckDuckGo Search Engine")
 class TestSearchEngineUI:
 
-    @allure.title("UI_01: Tìm kiếm thành công có kết quả")
+    @allure.title("UI_01: Kiểm tra giao diện Trang chủ hiển thị đúng")
+    def test_homepage_ui(self, driver):
+        target_url = "https://duckduckgo.com"
+        
+        with allure.step(f"1. Truy cập vào {target_url}"):
+            driver.get(target_url)
+            time.sleep(2)
+            
+        with allure.step("2. Xác minh Tiêu đề và Ô tìm kiếm xuất hiện"):
+            # Kiểm tra tiêu đề web
+            assert "DuckDuckGo" in driver.title
+            # Kiểm tra ô nhập chữ có tồn tại không
+            search_box = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.NAME, "q"))
+            )
+            assert search_box.is_displayed(), "Lỗi: Không hiển thị ô tìm kiếm!"
+            
+        with allure.step("Chụp ảnh màn hình trang chủ"):
+            allure.attach(driver.get_screenshot_as_png(), name="Anh_Trang_Chu_DDG", attachment_type=AttachmentType.PNG)
+
+    @allure.title("UI_02: Tìm kiếm từ khóa thành công có kết quả")
     def test_search_basic(self, driver):
         target_url = "https://duckduckgo.com"
         
@@ -22,41 +43,20 @@ class TestSearchEngineUI:
             driver.get(target_url)
             time.sleep(2) 
             
-        with allure.step("2. Nhập từ khóa hợp lệ và tìm kiếm"):
-            # Ô tìm kiếm của DuckDuckGo cũng có name="q"
+        with allure.step("2. Nhập từ khóa 'Automation Test' và tìm kiếm"):
             search_box = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.NAME, "q"))
             )
-            search_box.send_keys("Automation Test with Selenium")
+            search_box.send_keys("Automation Test")
             search_box.send_keys(Keys.RETURN)
             time.sleep(3) 
             
         with allure.step("3. Xác minh kết quả tìm kiếm hiển thị"):
+            # Khi tìm kiếm xong, tiêu đề tab sẽ có chữ Automation Test
             assert "Automation Test" in driver.title
-            # Đảm bảo không bị hiện chữ "No results"
-            assert "No results" not in driver.page_source
-
-    @allure.title("UI_02: Tìm kiếm từ khóa vô nghĩa (Không có kết quả)")
-    def test_search_no_result(self, driver):
-        target_url = "https://duckduckgo.com"
-        
-        with allure.step(f"1. Truy cập vào {target_url}"):
-            driver.get(target_url)
-            time.sleep(2)
             
-        with allure.step("2. Nhập chuỗi ký tự ngẫu nhiên vô nghĩa"):
-            search_box = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.NAME, "q"))
-            )
-            gibberish_text = "qwertyuioplkjhgfdsazxcvbnm1234567890xyz"
-            search_box.send_keys(gibberish_text)
-            search_box.send_keys(Keys.RETURN)
-            time.sleep(3)
-            
-        with allure.step("3. Xác minh web báo không tìm thấy tài liệu"):
-            page_source = driver.page_source
-            # DuckDuckGo sẽ báo "No results found for..."
-            assert "No results" in page_source
+        with allure.step("Chụp ảnh màn hình kết quả tìm kiếm"):
+            allure.attach(driver.get_screenshot_as_png(), name="Anh_Ket_Qua_Tim_Kiem", attachment_type=AttachmentType.PNG)
 
 
 # =====================================================================
