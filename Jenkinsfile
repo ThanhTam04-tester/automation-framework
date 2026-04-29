@@ -29,7 +29,7 @@ pipeline {
                 // 🔵 KỊCH BẢN 2: CHỈ TEST GOOGLE SEARCH
                 // Bỏ dấu // ở dòng dưới, và thêm // vào dòng Kịch bản 1 ở trên để đổi dự án
                 // =========================================================================
-                 sh 'venv/bin/pytest tests/google/ --alluredir=reports/allure-results --clean-alluredir'
+                  sh 'venv/bin/pytest tests/google/ --alluredir=reports/allure-results --clean-alluredir'
             }
         }
     }
