@@ -21,20 +21,23 @@ pipeline {
             steps {
                 // =========================================================================
                 // 🟢 KỊCH BẢN 1: CHỈ TEST ĐỒ ÁN KHÁCH SẠN (UI & API)
-                // Dùng khoảng trắng để nối 2 thư mục: tests/ui/ và tests/api/
                 // =========================================================================
-                 sh 'venv/bin/pytest tests/ui/ tests/api/ --alluredir=reports/allure-results --clean-alluredir'
+                // sh 'venv/bin/pytest tests/ui/ tests/api/ --alluredir=reports/allure-results --clean-alluredir'
   
                 // =========================================================================
                 // 🔵 KỊCH BẢN 2: CHỈ TEST GOOGLE SEARCH
-                // Bỏ dấu // ở dòng dưới, và thêm // vào dòng Kịch bản 1 ở trên để đổi dự án
                 // =========================================================================
                 // sh 'venv/bin/pytest tests/google/ --alluredir=reports/allure-results --clean-alluredir'
+
+                // =========================================================================
+                // 🟠 KỊCH BẢN 3: CHỈ TEST FACEBOOK
+                // =========================================================================
+                sh 'venv/bin/pytest tests/facebook/ --alluredir=reports/allure-results --clean-alluredir'
             }
         }
     }
     
-   post {
+    post {
         always {
             script {
                 allure commandline: 'Allure', includeProperties: false, jdk: '', results: [[path: 'reports/allure-results']]
