@@ -31,20 +31,20 @@ pipeline {
                 // =========================================================================
                 // 🔵 KỊCH BẢN 2: CHỈ TEST GOOGLE SEARCH
                 // =========================================================================
-                // sh '''
-                //     venv/bin/pytest tests/google/ \
-                //     --alluredir=reports/allure-results \
-                //     --clean-alluredir
-                // '''
+                sh '''
+                    venv/bin/pytest tests/google/ \
+                    --alluredir=reports/allure-results \
+                    --clean-alluredir
+                '''
  
                 // =========================================================================
                 // 🟠 KỊCH BẢN 3: CHỈ TEST SAUCEDEMO
                 // =========================================================================
-                sh '''
-                    venv/bin/pytest tests/saucedemo/ \
-                    --alluredir=reports/allure-results \
-                    --clean-alluredir
-                '''
+                // sh '''
+                //     venv/bin/pytest tests/saucedemo/ \
+                //     --alluredir=reports/allure-results \
+                //     --clean-alluredir
+                // '''
             }
         }
     }
