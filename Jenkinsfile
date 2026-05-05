@@ -23,7 +23,7 @@ pipeline {
                 // 🟢 KỊCH BẢN 1: CHỈ TEST ĐỒ ÁN KHÁCH SẠN (UI & API)
                 // =========================================================================
                 sh 'venv/bin/pytest tests/ui/ tests/api/--alluredir=reports/allure-results --clean-alluredir'
-    
+
                 // =========================================================================
                 // 🔵 KỊCH BẢN 2: CHỈ TEST GOOGLE SEARCH
                 // =========================================================================
