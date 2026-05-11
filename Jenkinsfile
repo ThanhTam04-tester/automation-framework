@@ -22,7 +22,7 @@ pipeline {
                 // =========================================================================
                 // 🟢 KỊCH BẢN 1: CHỈ TEST ĐỒ ÁN KHÁCH SẠN (UI & API)
                 // =========================================================================
-                // sh '''
+                  sh '''
                 //     venv/bin/pytest tests/ui/ tests/api/ \
                 //     --alluredir=reports/allure-results \
                 //     --clean-alluredir
@@ -31,11 +31,11 @@ pipeline {
                 // =========================================================================
                 // 🔵 KỊCH BẢN 2: CHỈ TEST GOOGLE SEARCH
                 // =========================================================================
-                sh '''
-                    venv/bin/pytest tests/google/ \
-                    --alluredir=reports/allure-results \
-                    --clean-alluredir
-                '''
+                //sh '''
+                //    venv/bin/pytest tests/google/ \
+                //    --alluredir=reports/allure-results \
+                //    --clean-alluredir
+                //'''
  
                 // =========================================================================
                 // 🟠 KỊCH BẢN 3: CHỈ TEST SAUCEDEMO
