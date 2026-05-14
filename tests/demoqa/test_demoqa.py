@@ -11,7 +11,8 @@ class TestDemoQA:
 
     @allure.title("TC_01: Truy cập thành công trang DemoQA")
     def test_open_demoqa(self, driver, config):
-        target_url = config['base_url']
+        # SỬA LẠI Ở ĐÂY: Gọi đúng tên key trong file yaml
+        target_url = config['base_url'] 
         wait = WebDriverWait(driver, 15)
 
         with allure.step(f"1. Truy cập vào website: {target_url}"):
