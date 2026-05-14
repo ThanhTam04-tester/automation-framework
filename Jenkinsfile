@@ -40,15 +40,19 @@ pipeline {
                 // =========================================================================
                 // 🟠 KỊCH BẢN 3: CHỈ TEST SAUCEDEMO
                 // =========================================================================
+                // sh '''
+                //     venv/bin/pytest tests/saucedemo/ \
+                //     --alluredir=reports/allure-results \
+                //     --clean-alluredir
+                // '''
+                   // =========================================================================
+                // 🟣 KỊCH BẢN 4: CHỈ TEST DEMOQA
+                // =========================================================================
                 sh '''
                     venv/bin/pytest tests/saucedemo/ \
                     --alluredir=reports/allure-results \
                     --clean-alluredir
                 '''
-                   // =========================================================================
-                // 🟣 KỊCH BẢN 4: CHỈ TEST DEMOQA
-                // =========================================================================
-                // sh 'venv/bin/pytest tests/demoqa/ --alluredir=reports/allure-results --clean-alluredir'
             }
         }
     }
