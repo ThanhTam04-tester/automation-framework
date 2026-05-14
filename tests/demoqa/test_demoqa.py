@@ -11,8 +11,8 @@ from selenium.webdriver.support import expected_conditions as EC
 class TestDemoQATextBox:
 
     @allure.title("TC_01: Điền và submit form Text Box thành công")
-    def test_text_box_submit(self, driver, base_url):
-        target_url = f"{base_url}/text-box"
+    def test_text_box_submit(self, driver, config):
+        target_url = f"{config['base_url']}/text-box"
 
         with allure.step(f"1. Truy cập trang Text Box: {target_url}"):
             driver.get(target_url)
@@ -49,8 +49,8 @@ class TestDemoQATextBox:
 class TestDemoQACheckBox:
 
     @allure.title("TC_02: Chọn checkbox Home và xác minh các mục con được chọn")
-    def test_checkbox_select_home(self, driver, base_url):
-        target_url = f"{base_url}/checkbox"
+    def test_checkbox_select_home(self, driver, config):
+        target_url = f"{config['base_url']}/checkbox"
 
         with allure.step(f"1. Truy cập trang Check Box: {target_url}"):
             driver.get(target_url)
@@ -85,8 +85,8 @@ class TestDemoQACheckBox:
 class TestDemoQARadioButton:
 
     @allure.title("TC_03: Chọn Radio Button 'Yes' và xác minh kết quả")
-    def test_radio_button_yes(self, driver, base_url):
-        target_url = f"{base_url}/radio-button"
+    def test_radio_button_yes(self, driver, config):
+        target_url = f"{config['base_url']}/radio-button"
 
         with allure.step(f"1. Truy cập trang Radio Button: {target_url}"):
             driver.get(target_url)
@@ -109,8 +109,8 @@ class TestDemoQARadioButton:
             )
 
     @allure.title("TC_04: Chọn Radio Button 'Impressive' và xác minh kết quả")
-    def test_radio_button_impressive(self, driver, base_url):
-        target_url = f"{base_url}/radio-button"
+    def test_radio_button_impressive(self, driver, config):
+        target_url = f"{config['base_url']}/radio-button"
 
         with allure.step(f"1. Truy cập trang Radio Button: {target_url}"):
             driver.get(target_url)
@@ -138,8 +138,8 @@ class TestDemoQARadioButton:
 class TestDemoQAWebTables:
 
     @allure.title("TC_05: Thêm một bản ghi mới vào Web Tables")
-    def test_web_tables_add_record(self, driver, base_url):
-        target_url = f"{base_url}/webtables"
+    def test_web_tables_add_record(self, driver, config):
+        target_url = f"{config['base_url']}/webtables"
 
         with allure.step(f"1. Truy cập trang Web Tables: {target_url}"):
             driver.get(target_url)
@@ -179,8 +179,8 @@ class TestDemoQAWebTables:
 class TestDemoQADatePicker:
 
     @allure.title("TC_06: Xác minh Date Picker mở ra và chọn ngày thành công")
-    def test_date_picker_open(self, driver, base_url):
-        target_url = f"{base_url}/date-picker"
+    def test_date_picker_open(self, driver, config):
+        target_url = f"{config['base_url']}/date-picker"
 
         with allure.step(f"1. Truy cập trang Date Picker: {target_url}"):
             driver.get(target_url)
