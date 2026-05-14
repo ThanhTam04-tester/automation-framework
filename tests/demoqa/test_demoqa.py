@@ -33,11 +33,18 @@ class TestDemoQA:
         with allure.step("3. Click vào mục Elements"):
 
             elements_card = driver.find_element(By.XPATH, "//h5[text()='Elements']")
-            elements_card.click()
 
-            time.sleep(2)
+    # Scroll tới element
+    driver.execute_script("arguments[0].scrollIntoView();", elements_card)
 
-        with allure.step("4. Xác minh đã chuyển sang trang Elements"):
+    time.sleep(1)
+
+    # Click bằng JavaScript
+    driver.execute_script("arguments[0].click();", elements_card)
+
+    time.sleep(2)
+
+    with allure.step("4. Xác minh đã chuyển sang trang Elements"):
 
             assert "elements" in driver.current_url
 
@@ -45,7 +52,7 @@ class TestDemoQA:
 
             assert header.text == "Elements"
 
-        with allure.step("5. Chụp ảnh màn hình minh chứng"):
+    with allure.step("5. Chụp ảnh màn hình minh chứng"):
 
             allure.attach(
                 driver.get_screenshot_as_png(),
