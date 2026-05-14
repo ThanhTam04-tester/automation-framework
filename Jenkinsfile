@@ -22,16 +22,16 @@ pipeline {
                 // =========================================================================
                 // 🟢 KỊCH BẢN 1: CHỈ TEST ĐỒ ÁN KHÁCH SẠN (UI & API)
                 // =========================================================================
-                    // sh '''
-                    //  venv/bin/pytest tests/ui/ tests/api/ \
-                    // --alluredir=reports/allure-results \
-                    // --clean-alluredir
-                        '''
+                // sh '''
+                //    venv/bin/pytest tests/ui/ tests/api/ \
+                //    --alluredir=reports/allure-results \
+                //    --clean-alluredir
+                // '''
 
                 // =========================================================================
                 // 🔵 KỊCH BẢN 2: CHỈ TEST GOOGLE SEARCH
                 // =========================================================================
-                //    sh '''
+                // sh '''
                 //    venv/bin/pytest tests/google/ \
                 //    --alluredir=reports/allure-results \
                 //    --clean-alluredir
@@ -41,16 +41,17 @@ pipeline {
                 // 🟠 KỊCH BẢN 3: CHỈ TEST SAUCEDEMO
                 // =========================================================================
                 // sh '''
-                //     venv/bin/pytest tests/saucedemo/ \
-                //     --alluredir=reports/allure-results \
-                //     --clean-alluredir
+                //    venv/bin/pytest tests/saucedemo/ \
+                //    --alluredir=reports/allure-results \
+                //    --clean-alluredir
                 // '''
-                   // =========================================================================
+
+                // =========================================================================
                 // 🟣 KỊCH BẢN 4: CHỈ TEST DEMOQA
                 // =========================================================================
-                  sh '''
+                sh '''
                     venv/bin/pytest tests/demoqa/ \
-                      --alluredir=reports/allure-results \
+                    --alluredir=reports/allure-results \
                     --clean-alluredir
                 '''
             }
