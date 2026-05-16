@@ -46,9 +46,9 @@ class TestDemoQA:
 
         with allure.step("5. Xác minh thông tin Output hiển thị chính xác bên dưới"):
             output_box = wait.until(EC.visibility_of_element_located((By.ID, "output")))
-            assert "Trịnh Huy Hoàng" in output_box.text, "Lỗi: Không hiển thị đúng tên!"
-            assert "hoang.it@example.com" in output_box.text, "Lỗi: Không hiển thị đúng email!"
-            assert "Thủ Dầu Một" in output_box.text, "Lỗi: Không hiển thị đúng địa chỉ!"
+            assert "Mai Thanh Tâm" in output_box.text, "Lỗi: Không hiển thị đúng tên!"
+            assert "Tam.it@example.com" in output_box.text, "Lỗi: Không hiển thị đúng email!"
+            assert "Hà Nội" in output_box.text, "Lỗi: Không hiển thị đúng địa chỉ!"
 
         with allure.step("6. Chụp ảnh màn hình minh chứng"):
             allure.attach(
