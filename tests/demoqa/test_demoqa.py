@@ -11,7 +11,7 @@ from allure_commons.types import AttachmentType
 # =====================================================================
 @allure.epic("Cross-Project Testing")
 @allure.feature("DemoQA Practice Form")
-class TestDemoQA:
+class TestDemoQA:  
 
     @allure.title("TC_01: Truy cập thành công trang DemoQA")
     def test_open_demoqa(self, driver):
