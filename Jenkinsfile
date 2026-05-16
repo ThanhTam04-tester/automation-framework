@@ -52,7 +52,7 @@ pipeline {
                 sh '''
                     venv/bin/pytest tests/demoqa/ \
                     --alluredir=reports/allure-results \
-                    --clean-alluredir
+                    --clean-alluredir \
                     --env=demoqa
                 '''
             }
