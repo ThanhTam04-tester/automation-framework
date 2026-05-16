@@ -15,7 +15,7 @@ class TestDemoQA:
 
     @allure.title("TC_01: Truy cập thành công trang DemoQA")
     def test_open_demoqa(self, driver):
-        # Gán thẳng URL trực tiếp để không bị nhầm sang host.docker.internal nữa
+        # Gán thẳng URL trực tiếp để không bị nhầm
         target_url = "https://demoqa.com"
         wait = WebDriverWait(driver, 15)
 
@@ -30,17 +30,24 @@ class TestDemoQA:
             assert banner.is_displayed(), "Không tìm thấy banner trang chủ DemoQA!"
 
         with allure.step("3. Click vào mục Elements"):
-            # Chuyển XPath sang bắt thẻ div class 'card' bọc ngoài chữ Elements
-            elements_card = wait.until(EC.presence_of_element_located(
-                (By.XPATH, "//div[contains(@class, 'top-card') and .//h5[text()='Elements']]")
+            # SỬA LỖI Ở ĐÂY: Nhắm thẳng vào chữ Elements thay vì thẻ div bọc ngoài
+            elements_text = wait.until(EC.presence_of_element_located(
+                (By.XPATH, "//h5[text()='Elements']")
             ))
-            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", elements_card)
             
-            # Tăng sleep lên 1 xíu để giao diện dừng cuộn hẳn rồi mới click
+            # Cuộn phần tử vào giữa màn hình
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", elements_text)
             time.sleep(1) 
             
-            # Dùng JS click thẳng vào thẻ Card to bọc bên ngoài
-            driver.execute_script("arguments[0].click();", elements_card)
+            # Tuyệt chiêu trị DemoQA: Xóa phần tử quảng cáo / footer hay đè lên nút bấm
+            driver.execute_script("var ad = document.getElementById('fixedban'); if(ad) ad.remove();")
+            driver.execute_script("var footer = document.getElementsByTagName('footer')[0]; if(footer) footer.remove();")
+            
+            # Ưu tiên click bằng Selenium chuẩn, nếu fail mới dùng JS backup
+            try:
+                elements_text.click()
+            except:
+                driver.execute_script("arguments[0].click();", elements_text)
 
         with allure.step("4. Xác minh đã chuyển sang trang Elements"):
             # Bắt buộc chờ URL trên trình duyệt thay đổi thành "elements" rồi mới check
