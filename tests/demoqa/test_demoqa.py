@@ -23,17 +23,17 @@ class TestDemoQA:
             time.sleep(2)
 
         with allure.step("2. Xác minh đã vào đúng trang Text Box"):
-            # Sửa lại Locator bắt theo XPATH chuẩn xác
             header = wait.until(EC.visibility_of_element_located(
                 (By.XPATH, "//h1[text()='Text Box']")
             ))
             assert "Text Box" in header.text, f"Sai tiêu đề trang: {header.text}"
 
         with allure.step("3. Nhập dữ liệu vào các trường thông tin"):
-            wait.until(EC.visibility_of_element_located((By.ID, "userName"))).send_keys("Trịnh Huy Hoàng")
-            driver.find_element(By.ID, "userEmail").send_keys("hoang.it@example.com")
-            driver.find_element(By.ID, "currentAddress").send_keys("Thủ Dầu Một, Bình Dương")
-            driver.find_element(By.ID, "permanentAddress").send_keys("Đồng Nai")
+            # SỬA Ở ĐÂY: Nhập đúng thông tin của Tâm để khớp với bước 5
+            wait.until(EC.visibility_of_element_located((By.ID, "userName"))).send_keys("Mai Thanh Tâm")
+            driver.find_element(By.ID, "userEmail").send_keys("Tam.it@example.com")
+            driver.find_element(By.ID, "currentAddress").send_keys("Hà Nội")
+            driver.find_element(By.ID, "permanentAddress").send_keys("Hà Nội")
             
         with allure.step("4. Cuộn xuống và Click nút Submit"):
             submit_btn = driver.find_element(By.ID, "submit")
