@@ -4,14 +4,18 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from allure_commons.types import AttachmentType
 
+# =====================================================================
+# PHẦN: UI AUTOMATION TESTING (TEST GIAO DIỆN DEMOQA)
+# =====================================================================
 @allure.epic("Cross-Project Testing")
 @allure.feature("DemoQA Practice Form")
 class TestDemoQA:
 
     @allure.title("TC_01: Truy cập thành công trang DemoQA")
-    def test_open_demoqa(self, driver, config):
-        # FIX LỖI Ở ĐÂY: Gán thẳng URL trực tiếp để không bị nhầm sang host.docker.internal nữa
+    def test_open_demoqa(self, driver):
+        # Gán thẳng URL trực tiếp để không bị nhầm sang host.docker.internal nữa
         target_url = "https://demoqa.com"
         wait = WebDriverWait(driver, 15)
 
@@ -52,5 +56,5 @@ class TestDemoQA:
             allure.attach(
                 driver.get_screenshot_as_png(),
                 name="DemoQA_Elements_Page",
-                attachment_type=allure.attachment_type.PNG
+                attachment_type=AttachmentType.PNG
             )
