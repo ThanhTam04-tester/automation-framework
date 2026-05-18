@@ -49,7 +49,7 @@ pipeline {
                 // =========================================================================
                 // 🟣 KỊCH BẢN 4: CHỈ TEST DEMOQA
                 // =========================================================================
-                sh '''
+                  sh '''
                     venv/bin/pytest tests/demoqa/ \
                     --alluredir=reports/allure-results \
                     --clean-alluredir 
