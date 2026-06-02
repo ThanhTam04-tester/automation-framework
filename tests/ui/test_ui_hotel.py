@@ -48,6 +48,8 @@ class TestPalatinUI:
         # Chụp ảnh danh sách phòng
         allure.attach(driver.get_screenshot_as_png(), name="Anh_Danh_Sach_Phong", attachment_type=AttachmentType.PNG)
 
+
+    
     @allure.title("UI_02: Khách xem chi tiết phòng")
     def test_02_view_room_detail(self, driver, config):
         driver.get(config["base_url"] + "/rooms")
@@ -76,17 +78,122 @@ class TestPalatinUI:
         time.sleep(2)
         assert "login" in driver.current_url
 
-    @allure.title("UI_04: Đăng nhập sai tài khoản")
-    def test_04_login_fail(self, driver, config):
+   # =====================================================================
+    # --------- MỞ RỘNG CÁC CASE ĐĂNG NHẬP (FULL SCENARIOS) ---------
+    # =====================================================================
+
+    @allure.title("UI_04a: Đăng nhập sai (Email chưa đăng ký)")
+    def test_04a_login_fail_unregistered_email(self, driver, config):
         driver.get(config["base_url"] + "/login")
         wait_for_preloader(driver)
-        driver.find_element(By.NAME, "email").send_keys("saibettnhe@gmail.com")
+        driver.find_element(By.NAME, "email").send_keys("acc_ao_chua_dang_ky@gmail.com")
+        driver.find_element(By.NAME, "password").send_keys("123456")
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1)
+        assert "sai email hoặc mật khẩu" in driver.find_element(By.CSS_SELECTOR, ".alert-danger").text.lower()
+
+    @allure.title("UI_04b: Đăng nhập sai (Bỏ trống toàn bộ thông tin)")
+    def test_04b_login_fail_empty_all(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        # Cố tình không nhập gì cả và bấm submit
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1)
+        # HTML5 form sẽ chặn lại, URL vẫn phải ở trang login
+        assert "login" in driver.current_url
+
+    @allure.title("UI_04c: Đăng nhập sai (Bỏ trống Mật khẩu)")
+    def test_04c_login_fail_empty_password(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        driver.find_element(By.NAME, "email").send_keys("admin@gmail.com")
+        driver.find_element(By.NAME, "password").send_keys("") # Bỏ trống pass
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1)
+        assert "login" in driver.current_url
+
+    @allure.title("UI_04d: Đăng nhập sai (Bỏ trống Email)")
+    def test_04d_login_fail_empty_email(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        driver.find_element(By.NAME, "email").send_keys("") # Bỏ trống email
         driver.find_element(By.NAME, "password").send_keys("123")
         driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
-        time.sleep(2)
+        time.sleep(1)
+        assert "login" in driver.current_url
+
+    @allure.title("UI_04e: Đăng nhập sai (Sai định dạng Email)")
+    def test_04e_login_fail_invalid_email_format(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        driver.find_element(By.NAME, "email").send_keys("admin_sai_dinh_dang") # Thiếu @gmail.com
+        driver.find_element(By.NAME, "password").send_keys("123")
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1)
+        assert "login" in driver.current_url
+
+    @allure.title("UI_04f: Đăng nhập sai (Đúng Email nhưng Sai Mật khẩu)")
+    def test_04f_login_fail_wrong_password(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        driver.find_element(By.NAME, "email").send_keys("admin@gmail.com")
+        driver.find_element(By.NAME, "password").send_keys("MatKhauSaiBiet123!") 
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1)
         assert "sai email hoặc mật khẩu" in driver.find_element(By.CSS_SELECTOR, ".alert-danger").text.lower()
-        # Chụp ảnh thông báo lỗi
-        allure.attach(driver.get_screenshot_as_png(), name="Anh_Loi_Dang_Nhap", attachment_type=AttachmentType.PNG)
+        allure.attach(driver.get_screenshot_as_png(), name="Anh_Loi_Sai_Mat_Khau", attachment_type=AttachmentType.PNG)
+
+    @allure.title("UI_04g: Kiểm tra khoảng trắng (Space) ở đầu/cuối Email")
+    def test_04g_login_whitespace_handling(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        # Thêm khoảng trắng ở đầu và cuối email xem hệ thống có tự động Trim() đi không
+        driver.find_element(By.NAME, "email").send_keys("   admin@gmail.com   ")
+        driver.find_element(By.NAME, "password").send_keys("123")
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1.5)
+        # Nếu web xử lý tốt khoảng trắng, nó sẽ đăng nhập thành công vào admin
+        # Nếu fail, test này sẽ đỏ (chứng tỏ web chưa trim khoảng trắng)
+        assert "dashboard" in driver.current_url
+
+
+    @allure.title("UI_04i: [Security] Tấn công SQL Injection vào ô Đăng nhập")
+    def test_04i_login_sql_injection_attempt(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        # Thử chèn mã SQL để qua mặt đăng nhập
+        driver.find_element(By.NAME, "email").send_keys("' OR '1'='1")
+        driver.find_element(By.NAME, "password").send_keys("' OR '1'='1")
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1)
+        # Nếu web bảo mật tốt, lệnh này không thể login được
+        assert "login" in driver.current_url
+        allure.attach(driver.get_screenshot_as_png(), name="Anh_Loi_SQL_Injection", attachment_type=AttachmentType.PNG)
+
+    @allure.title("UI_04j: [Security] Tấn công XSS vào ô Đăng nhập")
+    def test_04j_login_xss_attempt(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        # Thử chèn mã độc Javascript
+        driver.find_element(By.NAME, "email").send_keys("<script>alert('Hacked!');</script>@gmail.com")
+        driver.find_element(By.NAME, "password").send_keys("123")
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1)
+        # Chắc chắn URL vẫn ở trang đăng nhập hoặc báo lỗi định dạng
+        assert "login" in driver.current_url
+
+    @allure.title("UI_04k: [CỐ TÌNH FAIL] Kiểm tra hệ thống Allure bắt lỗi")
+    def test_04k_intentional_fail_for_allure(self, driver, config):
+        with allure.step("1. Truy cập trang đăng nhập"):
+            driver.get(config["base_url"] + "/login")
+            wait_for_preloader(driver)
+        with allure.step("2. Tìm kiếm nút bấm ảo không tồn tại để ép sinh ra lỗi FAILED màu đỏ"):
+            # Lệnh này chắc chắn sẽ gây lỗi NoSuchElement và sinh ra 1 case FAILED trong Allure
+            driver.find_element(By.ID, "nut-bam-ao-khong-ton-tai").click()
+
+    # =====================================================================
+    # --------- KẾT THÚC MỞ RỘNG CÁC CASE ĐĂNG NHẬP ---------
+    # =====================================================================
 
 
 
@@ -264,3 +371,30 @@ class TestPalatinUI:
             alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
             alert.accept()
             time.sleep(3)
+    # =====================================================================
+    # --------- NHÓM 3: CÁC TEST CASE CỐ TÌNH FAIL (CHO ALLURE REPORT) ---------
+    # =====================================================================
+
+     #test fail (đăng nhập)
+    @allure.title("UI_04h: Kiểm tra Email không phân biệt chữ hoa/thường")
+    def test_04h_login_case_insensitive_email(self, driver, config):
+        driver.get(config["base_url"] + "/login")
+        wait_for_preloader(driver)
+        # Nhập IN HOA toàn bộ email
+        driver.find_element(By.NAME, "email").send_keys("ADMIN@GMAIL.COM")
+        driver.find_element(By.NAME, "password").send_keys("123")
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1.5)
+        assert "dashboard" in driver.current_url
+    @allure.title("UI_13: [CỐ TÌNH FAIL] Lỗi Logic - Sai điều kiện nghiệp vụ")
+    def test_13_intentional_fail_logic_assert(self, driver, config):
+        with allure.step("Truy cập trang danh sách phòng"):
+            driver.get(config["base_url"] + "/rooms")
+            wait_for_preloader(driver)
+            
+        with allure.step("Kiểm tra logic hệ thống: Tổng số lượng phòng đang hiển thị phải lớn hơn 1000"):
+            rooms = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
+            actual_room_count = len(rooms)
+            
+            # Khách sạn chỉ có vài phòng, nhưng assert bắt buộc phải > 1000 -> Sẽ văng lỗi AssertionError (Màu đỏ trên Allure)
+            assert actual_room_count > 1000, f"LỖI NGHIỆP VỤ: Số lượng phòng thực tế ({actual_room_count}) không vượt quá 1000 như kỳ vọng!"
