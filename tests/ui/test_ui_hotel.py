@@ -156,16 +156,6 @@ class TestPalatinUI:
         # Nếu fail, test này sẽ đỏ (chứng tỏ web chưa trim khoảng trắng)
         assert "dashboard" in driver.current_url
 
-    @allure.title("UI_04h: Kiểm tra Email không phân biệt chữ hoa/thường")
-    def test_04h_login_case_insensitive_email(self, driver, config):
-        driver.get(config["base_url"] + "/login")
-        wait_for_preloader(driver)
-        # Nhập IN HOA toàn bộ email
-        driver.find_element(By.NAME, "email").send_keys("ADMIN@GMAIL.COM")
-        driver.find_element(By.NAME, "password").send_keys("123")
-        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
-        time.sleep(1.5)
-        assert "dashboard" in driver.current_url
 
     @allure.title("UI_04i: [Security] Tấn công SQL Injection vào ô Đăng nhập")
     def test_04i_login_sql_injection_attempt(self, driver, config):
@@ -385,17 +375,17 @@ class TestPalatinUI:
     # --------- NHÓM 3: CÁC TEST CASE CỐ TÌNH FAIL (CHO ALLURE REPORT) ---------
     # =====================================================================
 
-    @allure.title("UI_12: [CỐ TÌNH FAIL] Lỗi giao diện - Thiếu nút chức năng")
-    def test_12_intentional_fail_missing_button(self, driver, config):
-        login_as_admin(driver, config["base_url"])
-        driver.get(config["base_url"] + "/admin/dashboard")
+     #test fail (đăng nhập)
+    @allure.title("UI_04h: Kiểm tra Email không phân biệt chữ hoa/thường")
+    def test_04h_login_case_insensitive_email(self, driver, config):
+        driver.get(config["base_url"] + "/login")
         wait_for_preloader(driver)
-        
-        with allure.step("Tìm và bấm vào nút 'Xuất báo cáo doanh thu Excel' (Nút chưa được Dev code)"):
-            # Lệnh này sẽ văng lỗi NoSuchElementException làm case này bị Broken (Màu vàng/đỏ trên Allure)
-            export_btn = driver.find_element(By.ID, "btn-export-excel-doanh-thu")
-            driver.execute_script("arguments[0].click();", export_btn)
-
+        # Nhập IN HOA toàn bộ email
+        driver.find_element(By.NAME, "email").send_keys("ADMIN@GMAIL.COM")
+        driver.find_element(By.NAME, "password").send_keys("123")
+        driver.execute_script("arguments[0].click();", driver.find_element(By.CSS_SELECTOR, "button[type='submit']"))
+        time.sleep(1.5)
+        assert "dashboard" in driver.current_url
     @allure.title("UI_13: [CỐ TÌNH FAIL] Lỗi Logic - Sai điều kiện nghiệp vụ")
     def test_13_intentional_fail_logic_assert(self, driver, config):
         with allure.step("Truy cập trang danh sách phòng"):
