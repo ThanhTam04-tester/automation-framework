@@ -58,6 +58,24 @@ class TestSearchEngineUI:
         with allure.step("Chụp ảnh màn hình kết quả tìm kiếm"):
             allure.attach(driver.get_screenshot_as_png(), name="Anh_Ket_Qua_Tim_Kiem", attachment_type=AttachmentType.PNG)
 
+    # ---------------------------------------------------------------------
+    # THÊM MỚI: CASE UI CỐ TÌNH FAIL
+    # ---------------------------------------------------------------------
+    @allure.title("UI_03: [CỐ TÌNH FAIL] Lỗi giao diện - Không tìm thấy phần tử")
+    def test_intentional_fail_ui_missing_element(self, driver):
+        target_url = "https://duckduckgo.com"
+        
+        with allure.step(f"1. Truy cập vào {target_url}"):
+            driver.get(target_url)
+            time.sleep(2)
+            
+        with allure.step("2. Tìm kiếm nút 'Đăng nhập tài khoản' (Nút này không có trên trang chủ DDG)"):
+            # WebDriver sẽ chờ 3 giây, không thấy ID này sẽ ném ra lỗi TimeoutException (Màu vàng/đỏ)
+            fake_btn = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.ID, "btn-login-ao-khong-ton-tai"))
+            )
+            fake_btn.click()
+
 
 # =====================================================================
 # PHẦN 2: API & BACKEND TESTING
@@ -98,3 +116,22 @@ class TestSearchEngineAPI:
             # DDG trả về list các object, ta lấy gợi ý đầu tiên
             first_suggestion = data[0].get("phrase", "")
             assert first_suggestion != "", "Không lấy được từ khóa gợi ý!"
+
+    # ---------------------------------------------------------------------
+    # THÊM MỚI: CASE API CỐ TÌNH FAIL
+    # ---------------------------------------------------------------------
+    @allure.title("API_03: [CỐ TÌNH FAIL] Lỗi Logic - Sai dữ liệu API trả về")
+    def test_intentional_fail_api_logic(self):
+        api_url = "https://duckduckgo.com/ac/"
+        params = {"q": "kiem thu phan mem"}
+        
+        with allure.step(f"1. Gửi request GET tới API Autocomplete với từ khóa: '{params['q']}'"):
+            response = requests.get(api_url, params=params)
+            assert response.status_code == 200
+            data = response.json()
+            
+        with allure.step("2. Cố tình kiểm tra (Assert) sai thông tin kết quả"):
+            first_suggestion = data[0].get("phrase", "")
+            # Kết quả thực tế là các từ khóa liên quan đến kiểm thử, nhưng ta cố tình ép nó phải trả về tên người
+            # Lệnh assert này sẽ gây lỗi AssertionError (Màu đỏ)
+            assert "Trịnh Huy Hoàng" in first_suggestion, f"LỖI NGHIỆP VỤ: Kỳ vọng API trả về 'Trịnh Huy Hoàng' nhưng thực tế lại là '{first_suggestion}'"

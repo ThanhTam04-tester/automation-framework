@@ -381,3 +381,30 @@ class TestPalatinUI:
             alert = WebDriverWait(driver, 5).until(EC.alert_is_present())
             alert.accept()
             time.sleep(3)
+    # =====================================================================
+    # --------- NHÓM 3: CÁC TEST CASE CỐ TÌNH FAIL (CHO ALLURE REPORT) ---------
+    # =====================================================================
+
+    @allure.title("UI_12: [CỐ TÌNH FAIL] Lỗi giao diện - Thiếu nút chức năng")
+    def test_12_intentional_fail_missing_button(self, driver, config):
+        login_as_admin(driver, config["base_url"])
+        driver.get(config["base_url"] + "/admin/dashboard")
+        wait_for_preloader(driver)
+        
+        with allure.step("Tìm và bấm vào nút 'Xuất báo cáo doanh thu Excel' (Nút chưa được Dev code)"):
+            # Lệnh này sẽ văng lỗi NoSuchElementException làm case này bị Broken (Màu vàng/đỏ trên Allure)
+            export_btn = driver.find_element(By.ID, "btn-export-excel-doanh-thu")
+            driver.execute_script("arguments[0].click();", export_btn)
+
+    @allure.title("UI_13: [CỐ TÌNH FAIL] Lỗi Logic - Sai điều kiện nghiệp vụ")
+    def test_13_intentional_fail_logic_assert(self, driver, config):
+        with allure.step("Truy cập trang danh sách phòng"):
+            driver.get(config["base_url"] + "/rooms")
+            wait_for_preloader(driver)
+            
+        with allure.step("Kiểm tra logic hệ thống: Tổng số lượng phòng đang hiển thị phải lớn hơn 1000"):
+            rooms = driver.find_elements(By.CLASS_NAME, "single-rooms-area")
+            actual_room_count = len(rooms)
+            
+            # Khách sạn chỉ có vài phòng, nhưng assert bắt buộc phải > 1000 -> Sẽ văng lỗi AssertionError (Màu đỏ trên Allure)
+            assert actual_room_count > 1000, f"LỖI NGHIỆP VỤ: Số lượng phòng thực tế ({actual_room_count}) không vượt quá 1000 như kỳ vọng!"
