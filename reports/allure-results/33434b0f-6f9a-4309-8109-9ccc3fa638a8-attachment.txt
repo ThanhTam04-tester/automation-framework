@@ -1,0 +1,4 @@
+2026-06-02 22:25:52 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_ui_hotel.py::TestPalatinUI::test_04g_login_whitespace_handling
+2026-06-02 22:25:52 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_ui_hotel.py::TestPalatinUI::test_04i_login_sql_injection_attempt
+2026-06-02 22:25:52 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-06-02 22:25:55 | ERROR | automation_framework.tests | [SCREENSHOT] Saved: screenshots\test_04i_login_sql_injection_attempt_20260602_222555.png

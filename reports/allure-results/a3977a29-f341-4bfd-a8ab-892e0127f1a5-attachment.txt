@@ -1,0 +1,4 @@
+2026-06-02 22:25:29 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_ui_hotel.py::TestPalatinUI::test_04c_login_fail_empty_password
+2026-06-02 22:25:29 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_ui_hotel.py::TestPalatinUI::test_04d_login_fail_empty_email
+2026-06-02 22:25:29 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-06-02 22:25:32 | ERROR | automation_framework.tests | [SCREENSHOT] Saved: screenshots\test_04d_login_fail_empty_email_20260602_222532.png

@@ -1,0 +1,1 @@
+{"name": "UI_05 & 06: Cảnh báo điền thiếu và Đặt phòng thành công", "status": "skipped", "start": 1780413969424, "stop": 1780413969424, "uuid": "70ac7cd1-d34c-490a-b9e7-f7be4cea5250", "testCaseId": "233e4b11b8382a030240e61c18430a56", "fullName": "tests.ui.test_ui_hotel.TestPalatinUI#test_05_06_booking_flow", "titlePath": ["tests", "ui", "test_ui_hotel.py", "TestPalatinUI"]}

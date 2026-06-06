@@ -1,0 +1,3 @@
+2026-06-02 22:24:54 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_ui_hotel.py::TestPalatinUI::test_01_view_room_list
+2026-06-02 22:24:54 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-06-02 22:24:58 | ERROR | automation_framework.tests | [SCREENSHOT] Saved: screenshots\test_01_view_room_list_20260602_222458.png

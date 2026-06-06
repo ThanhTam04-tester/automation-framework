@@ -1,0 +1,4 @@
+2026-06-02 22:25:06 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_ui_hotel.py::TestPalatinUI::test_02_view_room_detail
+2026-06-02 22:25:06 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_ui_hotel.py::TestPalatinUI::test_03_register_new_user
+2026-06-02 22:25:06 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-06-02 22:25:09 | ERROR | automation_framework.tests | [SCREENSHOT] Saved: screenshots\test_03_register_new_user_20260602_222509.png

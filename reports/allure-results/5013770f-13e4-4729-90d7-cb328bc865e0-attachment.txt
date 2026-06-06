@@ -1,0 +1,4 @@
+2026-06-02 22:26:03 | INFO  | automation_framework.tests | [TEST END] tests/ui/test_ui_hotel.py::TestPalatinUI::test_04j_login_xss_attempt
+2026-06-02 22:26:03 | INFO  | automation_framework.tests | [TEST START] tests/ui/test_ui_hotel.py::TestPalatinUI::test_04k_intentional_fail_for_allure
+2026-06-02 22:26:03 | INFO  | automation_framework.driver_factory | Start browser: chrome | headless=True
+2026-06-02 22:26:06 | ERROR | automation_framework.tests | [SCREENSHOT] Saved: screenshots\test_04k_intentional_fail_for_allure_20260602_222606.png
